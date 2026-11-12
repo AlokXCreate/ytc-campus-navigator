@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <pattern id="grid-admin" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#f8fafc"/>
+  <rect width="1000" height="600" fill="url(#grid-admin)"/>
+
+  <!-- Building Perimeter -->
+  <rect x="50" y="50" width="900" height="500" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+
+  <!-- Grand Entrance Lobby -->
+  <rect x="350" y="380" width="300" height="160" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="500" y="440" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">MAIN RECEPTION &amp; ATRIUM</text>
+  <text x="500" y="465" font-family="Inter, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Inquiry &amp; Campus Information Desk</text>
+  <polygon points="500,545 480,565 520,565" fill="#2563eb"/>
+  <text x="500" y="585" font-family="Inter, sans-serif" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">MAIN ENTRANCE</text>
+
+  <!-- Principal & Director Office (West Wing) relative_x: 0.25, relative_y: 0.35 -->
+  <g id="principal-chamber">
+    <rect x="80" y="80" width="300" height="240" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <rect x="80" y="80" width="300" height="32" rx="6" fill="#1e40af"/>
+    <text x="230" y="102" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">ADM-001: DIRECTOR &amp; PRINCIPAL OFFICE</text>
+    <text x="230" y="170" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1e3a8a" text-anchor="middle">Executive Directorate</text>
+    <text x="230" y="195" font-family="Inter, sans-serif" font-size="12" fill="#475569" text-anchor="middle">Meeting Chamber &amp; Visitor Lounge</text>
+  </g>
+
+  <!-- Student Counter & Exam Cell (East Wing) relative_x: 0.70, relative_y: 0.35 -->
+  <g id="student-section">
+    <rect x="620" y="80" width="300" height="240" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <rect x="620" y="80" width="300" height="32" rx="6" fill="#047857"/>
+    <text x="770" y="102" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">ADM-004: STUDENT SECTION &amp; EXAM CELL</text>
+    <text x="770" y="170" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#065f46" text-anchor="middle">Academic Affairs Counter</text>
+    <text x="770" y="195" font-family="Inter, sans-serif" font-size="12" fill="#475569" text-anchor="middle">Admissions, Scholarship &amp; Hall Tickets</text>
+  </g>
+
+  <!-- Board Room -->
+  <g id="board-room">
+    <rect x="400" y="80" width="200" height="150" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+    <text x="500" y="145" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">CONFERENCE ROOM</text>
+    <text x="500" y="165" font-family="Inter, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">ADM-002</text>
+  </g>
+
+  <!-- Title & Watermark -->
+  <rect x="60" y="10" width="560" height="24" rx="4" fill="#0f172a"/>
+  <text x="70" y="26" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">YTC CAMPUS NAVIGATOR | ADMIN BUILDING (ADM-A) - GROUND FLOOR</text>
+  <text x="940" y="585" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8" text-anchor="end">* Demonstrative academic floor plan.</text>
+</svg>

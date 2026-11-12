@@ -1,0 +1,475 @@
+{
+  "institution": {
+    "name": "Yashoda Technical Campus",
+    "short_name": "YTC Satara",
+    "address": "NH-4, S. No. 242/1, VN Rd / Wadhe Phata, Wadhe, Satara – 415011, Maharashtra, India",
+    "department": "Artificial Intelligence & Data Science",
+    "project_title": "YTC Campus Navigator",
+    "campus_center": {
+      "latitude": 17.7215,
+      "longitude": 74.0205,
+      "note": "Demonstration coordinates for Wadhe Phata / YTC Satara. Replaceable with surveyed ground-truth coordinates."
+    }
+  },
+  "buildings": [
+    {
+      "id": "bldg-a",
+      "name": "Main Administrative & Academic Building",
+      "building_code": "ADM-A",
+      "description": "Houses the Directorate, Principal Office, Student Services, Registrar, and Central Administration.",
+      "latitude": 17.7218,
+      "longitude": 74.0202,
+      "entrance_latitude": 17.7216,
+      "entrance_longitude": 74.0202,
+      "total_floors": 4,
+      "available_floors": [0, 1, 2, 3],
+      "building_type": "administrative_academic",
+      "image_url": "/images/bldg-admin.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-b",
+      "name": "Engineering & Technology Block",
+      "building_code": "ENG-B",
+      "description": "Home to the AI & DS, Computer, Mechanical, Civil, and Electrical Engineering Departments, faculty offices, and high-performance labs.",
+      "latitude": 17.7224,
+      "longitude": 74.0208,
+      "entrance_latitude": 17.7222,
+      "entrance_longitude": 74.0207,
+      "total_floors": 4,
+      "available_floors": [0, 1, 2, 3],
+      "building_type": "academic_engineering",
+      "image_url": "/images/bldg-eng.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-c",
+      "name": "Pharmacy & Polytechnic Complex",
+      "building_code": "PHARM-C",
+      "description": "Houses Faculty of Pharmacy, Diploma Engineering departments, chemical laboratories, and research chambers.",
+      "latitude": 17.7227,
+      "longitude": 74.0195,
+      "entrance_latitude": 17.7225,
+      "entrance_longitude": 74.0196,
+      "total_floors": 3,
+      "available_floors": [0, 1, 2],
+      "building_type": "academic_pharmacy",
+      "image_url": "/images/bldg-pharm.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-d",
+      "name": "Central Library & Knowledge Resource Center",
+      "building_code": "LIB-D",
+      "description": "Two-storey library housing over 40,000 volumes, national/international journals, digital reading lounge, and research cubicles.",
+      "latitude": 17.7212,
+      "longitude": 74.0212,
+      "entrance_latitude": 17.7213,
+      "entrance_longitude": 74.0211,
+      "total_floors": 2,
+      "available_floors": [0, 1],
+      "building_type": "library",
+      "image_url": "/images/bldg-library.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-e",
+      "name": "Central Workshop & Innovation Hub",
+      "building_code": "WS-E",
+      "description": "Machining, welding, carpentry, foundry sections, and student robotics innovation and prototyping workspaces.",
+      "latitude": 17.7231,
+      "longitude": 74.0215,
+      "entrance_latitude": 17.7230,
+      "entrance_longitude": 74.0213,
+      "total_floors": 1,
+      "available_floors": [0],
+      "building_type": "workshop",
+      "image_url": "/images/bldg-workshop.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-f",
+      "name": "Student Cafeteria & Canteen",
+      "building_code": "CAN-F",
+      "description": "Multi-cuisine food service, spacious dining hall, bakery, and open snack patio for students and staff.",
+      "latitude": 17.7208,
+      "longitude": 74.0198,
+      "entrance_latitude": 17.7209,
+      "entrance_longitude": 74.0199,
+      "total_floors": 2,
+      "available_floors": [0, 1],
+      "building_type": "amenity",
+      "image_url": "/images/bldg-canteen.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-g",
+      "name": "Boys Hostel Complex",
+      "building_code": "HSTL-B",
+      "description": "Four-storey residential block with study halls, recreational lounge, and Wi-Fi connectivity.",
+      "latitude": 17.7236,
+      "longitude": 74.0222,
+      "entrance_latitude": 17.7234,
+      "entrance_longitude": 74.0221,
+      "total_floors": 4,
+      "available_floors": [0, 1, 2, 3],
+      "building_type": "residential",
+      "image_url": "/images/bldg-hostel.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-h",
+      "name": "Girls Hostel Complex",
+      "building_code": "HSTL-G",
+      "description": "Dedicated secure residential facility with 24/7 security, solar water heating, and study amenities.",
+      "latitude": 17.7239,
+      "longitude": 74.0200,
+      "entrance_latitude": 17.7237,
+      "entrance_longitude": 74.0201,
+      "total_floors": 4,
+      "available_floors": [0, 1, 2, 3],
+      "building_type": "residential",
+      "image_url": "/images/bldg-hostel-girls.jpg",
+      "is_active": true
+    },
+    {
+      "id": "bldg-i",
+      "name": "Sports Complex & Athletic Ground",
+      "building_code": "SPRT-I",
+      "description": "Open athletic track, cricket pitch, basketball court, badminton facilities, and physical education office.",
+      "latitude": 17.7202,
+      "longitude": 74.0220,
+      "entrance_latitude": 17.7204,
+      "entrance_longitude": 74.0218,
+      "total_floors": 1,
+      "available_floors": [0],
+      "building_type": "sports",
+      "image_url": "/images/bldg-sports.jpg",
+      "is_active": true
+    }
+  ],
+  "rooms": [
+    {
+      "id": "rm-101",
+      "room_name": "Director & Principal Office",
+      "room_number": "ADM-001",
+      "building_id": "bldg-a",
+      "floor": 0,
+      "room_type": "administrative",
+      "description": "Executive administration, Principal reception, and official inquiry chamber.",
+      "relative_x": 0.25,
+      "relative_y": 0.35,
+      "is_active": true
+    },
+    {
+      "id": "rm-102",
+      "room_name": "Student Section & Examination Cell",
+      "room_number": "ADM-004",
+      "building_id": "bldg-a",
+      "floor": 0,
+      "room_type": "administrative",
+      "description": "Admission verification, fee payment, examination hall tickets, and scholarship documentation.",
+      "relative_x": 0.70,
+      "relative_y": 0.35,
+      "is_active": true
+    },
+    {
+      "id": "rm-103",
+      "room_name": "Central Auditorium & Seminar Hall 1",
+      "room_number": "ADM-101",
+      "building_id": "bldg-a",
+      "floor": 1,
+      "room_type": "auditorium",
+      "description": "300-seat acoustic auditorium for technical guest lectures, symposiums, and cultural ceremonies.",
+      "relative_x": 0.50,
+      "relative_y": 0.50,
+      "is_active": true
+    },
+    {
+      "id": "rm-201",
+      "room_name": "AI & Data Science Department Office",
+      "room_number": "ENG-201",
+      "building_id": "bldg-b",
+      "floor": 2,
+      "room_type": "department_office",
+      "description": "Head of Department (AI & DS), faculty cubicles, and departmental academic coordination desk.",
+      "relative_x": 0.20,
+      "relative_y": 0.25,
+      "is_active": true
+    },
+    {
+      "id": "rm-202",
+      "room_name": "Artificial Intelligence & Deep Learning Lab",
+      "room_number": "ENG-204",
+      "building_id": "bldg-b",
+      "floor": 2,
+      "room_type": "laboratory",
+      "description": "GPU-accelerated lab equipped for Neural Networks, Computer Vision, and Generative AI practicals.",
+      "relative_x": 0.40,
+      "relative_y": 0.25,
+      "is_active": true
+    },
+    {
+      "id": "rm-203",
+      "room_name": "Big Data Analytics & Cloud Lab",
+      "room_number": "ENG-206",
+      "building_id": "bldg-b",
+      "floor": 2,
+      "room_type": "laboratory",
+      "description": "High-speed networked terminals for Distributed Computing, Hadoop, Spark, and Data Engineering workflows.",
+      "relative_x": 0.75,
+      "relative_y": 0.25,
+      "is_active": true
+    },
+    {
+      "id": "rm-204",
+      "room_name": "AI & DS Classroom (Third Year)",
+      "room_number": "ENG-208",
+      "building_id": "bldg-b",
+      "floor": 2,
+      "room_type": "classroom",
+      "description": "Smart interactive lecture hall with HD projector and audio amplification for TY AI & DS.",
+      "relative_x": 0.35,
+      "relative_y": 0.75,
+      "is_active": true
+    },
+    {
+      "id": "rm-205",
+      "room_name": "Computer Engineering HOD Office",
+      "room_number": "ENG-101",
+      "building_id": "bldg-b",
+      "floor": 1,
+      "room_type": "department_office",
+      "description": "Department of Computer Engineering head office and faculty consultation area.",
+      "relative_x": 0.20,
+      "relative_y": 0.25,
+      "is_active": true
+    },
+    {
+      "id": "rm-206",
+      "room_name": "Software Engineering & Web Technologies Lab",
+      "room_number": "ENG-103",
+      "building_id": "bldg-b",
+      "floor": 1,
+      "room_type": "laboratory",
+      "description": "Full-stack software development lab with Linux/Windows dual-boot environments.",
+      "relative_x": 0.55,
+      "relative_y": 0.25,
+      "is_active": true
+    },
+    {
+      "id": "rm-301",
+      "room_name": "Digital Reading & E-Resource Lounge",
+      "room_number": "LIB-102",
+      "building_id": "bldg-d",
+      "floor": 1,
+      "room_type": "study_area",
+      "description": "Dedicated terminals accessing IEEE, ScienceDirect, Delnet, and NPTEL online portals.",
+      "relative_x": 0.50,
+      "relative_y": 0.40,
+      "is_active": true
+    },
+    {
+      "id": "rm-302",
+      "room_name": "Book Circulation & Reference Stacks",
+      "room_number": "LIB-001",
+      "building_id": "bldg-d",
+      "floor": 0,
+      "room_type": "library_stack",
+      "description": "Central catalog search, issue/return counters, and comprehensive engineering textbook stacks.",
+      "relative_x": 0.50,
+      "relative_y": 0.50,
+      "is_active": true
+    }
+  ],
+  "facilities": [
+    {
+      "id": "fac-01",
+      "name": "Main Entrance & Security Gate",
+      "facility_type": "gate",
+      "building_id": null,
+      "latitude": 17.7210,
+      "longitude": 74.0190,
+      "description": "Primary campus entrance on Wadhe Phata connecting NH-4. Visitor registration and security desk.",
+      "opening_information": "24/7 Access for authorized visitors & campus vehicles",
+      "image_url": "/images/fac-gate.jpg"
+    },
+    {
+      "id": "fac-02",
+      "name": "Central Campus Cafeteria",
+      "facility_type": "canteen",
+      "building_id": "bldg-f",
+      "latitude": 17.7208,
+      "longitude": 74.0198,
+      "description": "Breakfast, lunch, tea, and snack services with clean filtered drinking water stations.",
+      "opening_information": "Monday to Saturday: 8:00 AM – 7:00 PM",
+      "image_url": "/images/fac-canteen.jpg"
+    },
+    {
+      "id": "fac-03",
+      "name": "Vehicle Parking Area A (Students & Visitors)",
+      "facility_type": "parking",
+      "building_id": null,
+      "latitude": 17.7213,
+      "longitude": 74.0193,
+      "description": "Covered two-wheeler and four-wheeler parking lots near Main Admin Building.",
+      "opening_information": "Open daily: 7:30 AM – 8:30 PM",
+      "image_url": "/images/fac-parking.jpg"
+    },
+    {
+      "id": "fac-04",
+      "name": "Health Center & First Aid Ward",
+      "facility_type": "medical",
+      "building_id": "bldg-a",
+      "latitude": 17.7217,
+      "longitude": 74.0200,
+      "description": "Emergency first-aid, doctor on call, ambulance assistance, and resting beds.",
+      "opening_information": "Monday to Saturday: 9:00 AM – 5:30 PM",
+      "image_url": "/images/fac-medical.jpg"
+    },
+    {
+      "id": "fac-05",
+      "name": "ATM & Student Utility Store",
+      "facility_type": "banking",
+      "building_id": null,
+      "latitude": 17.7211,
+      "longitude": 74.0196,
+      "description": "24/7 ATM kiosk, photocopy, stationery printing, and spiral binding shop.",
+      "opening_information": "Stationery: 8:30 AM – 6:30 PM; ATM: 24/7",
+      "image_url": "/images/fac-utility.jpg"
+    },
+    {
+      "id": "fac-06",
+      "name": "Outdoor Basketball & Badminton Court",
+      "facility_type": "sports",
+      "building_id": "bldg-i",
+      "latitude": 17.7202,
+      "longitude": 74.0220,
+      "description": "All-weather concrete court with floodlights for evening athletic activities.",
+      "opening_information": "Open daily: 6:00 AM – 8:00 PM",
+      "image_url": "/images/fac-sports.jpg"
+    }
+  ],
+  "paths": [
+    {
+      "id": "path-01",
+      "source_node": "gate_main",
+      "destination_node": "parking_a",
+      "distance": 45.0,
+      "path_type": "paved_road",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7210, 74.0190],
+        [17.7213, 74.0193]
+      ]
+    },
+    {
+      "id": "path-02",
+      "source_node": "parking_a",
+      "destination_node": "bldg_a_entrance",
+      "distance": 85.0,
+      "path_type": "pedestrian_walkway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7213, 74.0193],
+        [17.7216, 74.0202]
+      ]
+    },
+    {
+      "id": "path-03",
+      "source_node": "bldg_a_entrance",
+      "destination_node": "bldg_b_entrance",
+      "distance": 110.0,
+      "path_type": "pedestrian_walkway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7216, 74.0202],
+        [17.7222, 74.0207]
+      ]
+    },
+    {
+      "id": "path-04",
+      "source_node": "bldg_a_entrance",
+      "destination_node": "lib_entrance",
+      "distance": 95.0,
+      "path_type": "garden_pathway",
+      "accessibility": "accessible",
+      "geometry": [
+        [17.7216, 74.0202],
+        [17.7213, 74.0211]
+      ]
+    },
+    {
+      "id": "path-05",
+      "source_node": "bldg_b_entrance",
+      "destination_node": "workshop_entrance",
+      "distance": 125.0,
+      "path_type": "paved_walkway",
+      "accessibility": "accessible",
+      "geometry": [
+        [17.7222, 74.0207],
+        [17.7230, 74.0213]
+      ]
+    },
+    {
+      "id": "path-06",
+      "source_node": "gate_main",
+      "destination_node": "canteen_entrance",
+      "distance": 90.0,
+      "path_type": "pedestrian_walkway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7210, 74.0190],
+        [17.7209, 74.0199]
+      ]
+    },
+    {
+      "id": "path-07",
+      "source_node": "canteen_entrance",
+      "destination_node": "bldg_a_entrance",
+      "distance": 80.0,
+      "path_type": "pedestrian_walkway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7209, 74.0199],
+        [17.7216, 74.0202]
+      ]
+    },
+    {
+      "id": "path-08",
+      "source_node": "lib_entrance",
+      "destination_node": "sports_ground",
+      "distance": 130.0,
+      "path_type": "paved_walkway",
+      "accessibility": "accessible",
+      "geometry": [
+        [17.7213, 74.0211],
+        [17.7204, 74.0218]
+      ]
+    }
+  ],
+  "floor_plans": [
+    {
+      "id": "fp-bldg-b-fl2",
+      "building_id": "bldg-b",
+      "floor_number": 2,
+      "floor_label": "Second Floor (AI & DS Department)",
+      "image_path": "/floor-plans/eng-floor-2.svg",
+      "width": 1000,
+      "height": 600,
+      "is_approximate": true,
+      "description": "Department of Artificial Intelligence & Data Science Labs, Classrooms, and Faculty cabins."
+    },
+    {
+      "id": "fp-bldg-a-fl0",
+      "building_id": "bldg-a",
+      "floor_number": 0,
+      "floor_label": "Ground Floor (Administration)",
+      "image_path": "/floor-plans/admin-floor-0.svg",
+      "width": 1000,
+      "height": 600,
+      "is_approximate": true,
+      "description": "Directorate, Examination Cell, Student Counter, and Central Reception."
+    }
+  ]
+}

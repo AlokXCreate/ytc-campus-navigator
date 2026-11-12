@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="corridorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="1000" height="600" fill="#f8fafc"/>
+  <rect width="1000" height="600" fill="url(#grid)"/>
+
+  <!-- Building Perimeter -->
+  <rect x="40" y="40" width="920" height="520" rx="12" fill="#ffffff" stroke="#1e293b" stroke-width="4"/>
+
+  <!-- Central Corridor -->
+  <rect x="50" y="250" width="900" height="100" fill="url(#corridorGrad)" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="500" y="308" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="4">CENTRAL CORRIDOR / PASSAGEWAY</text>
+
+  <!-- Vertical Stairs & Lifts -->
+  <g id="stairs-west">
+    <rect x="50" y="250" width="70" height="100" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="85" y="305" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">STAIRS A</text>
+  </g>
+  <g id="stairs-east">
+    <rect x="880" y="250" width="70" height="100" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="915" y="305" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">STAIRS B</text>
+  </g>
+
+  <!-- ROOM 1: AI & DS Department Office (relative_x: ~0.20, y: ~0.25) -->
+  <g id="rm-201-group">
+    <rect x="130" y="55" width="150" height="185" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="130" y="55" width="150" height="30" rx="6" fill="#2563eb"/>
+    <text x="205" y="75" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ENG-201</text>
+    <text x="205" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e3a8a" text-anchor="middle">AI &amp; DS Dept.</text>
+    <text x="205" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">HOD &amp; Faculty Office</text>
+    <!-- Door -->
+    <path d="M 180 240 Q 200 220 220 240" fill="none" stroke="#2563eb" stroke-width="2"/>
+  </g>
+
+  <!-- ROOM 2: AI & Deep Learning Lab (relative_x: ~0.40, y: ~0.25) -->
+  <g id="rm-202-group">
+    <rect x="300" y="55" width="220" height="185" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <rect x="300" y="55" width="220" height="30" rx="6" fill="#15803d"/>
+    <text x="410" y="75" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ENG-204</text>
+    <text x="410" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#14532d" text-anchor="middle">AI &amp; Deep Learning Lab</text>
+    <text x="410" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">GPU Acceleration Racks</text>
+    <!-- Door -->
+    <path d="M 380 240 Q 400 220 420 240" fill="none" stroke="#16a34a" stroke-width="2"/>
+  </g>
+
+  <!-- ROOM 3: Big Data Analytics & Cloud Lab (relative_x: ~0.75, y: ~0.25) -->
+  <g id="rm-203-group">
+    <rect x="640" y="55" width="230" height="185" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+    <rect x="640" y="55" width="230" height="30" rx="6" fill="#7e22ce"/>
+    <text x="755" y="75" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ENG-206</text>
+    <text x="755" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#581c87" text-anchor="middle">Big Data &amp; Cloud Lab</text>
+    <text x="755" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Cluster Computing Setup</text>
+    <!-- Door -->
+    <path d="M 720 240 Q 740 220 760 240" fill="none" stroke="#9333ea" stroke-width="2"/>
+  </g>
+
+  <!-- North Center Room: Tutorial / Conference Hall -->
+  <g id="north-conf">
+    <rect x="530" y="55" width="100" height="185" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+    <text x="580" y="140" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#9a3412" text-anchor="middle">Tutorial Rm</text>
+    <text x="580" y="160" font-family="Inter, sans-serif" font-size="10" fill="#7c2d12" text-anchor="middle">ENG-205</text>
+  </g>
+
+  <!-- SOUTH WING -->
+  <!-- ROOM 4: AI & DS Classroom TY (relative_x: ~0.35, y: ~0.75) -->
+  <g id="rm-204-group">
+    <rect x="130" y="360" width="390" height="185" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+    <rect x="130" y="360" width="390" height="30" rx="6" fill="#334155"/>
+    <text x="325" y="380" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ENG-208: TY AI &amp; DS CLASSROOM</text>
+    <text x="325" y="445" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1e293b" text-anchor="middle">Smart Interactive Classroom</text>
+    <text x="325" y="468" font-family="Inter, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">Capacity: 75 Students | Audio-Visual Smart System</text>
+    <!-- Door -->
+    <path d="M 300 360 Q 320 380 340 360" fill="none" stroke="#334155" stroke-width="2"/>
+  </g>
+
+  <!-- South East Wing: Seminar & Project Chamber -->
+  <g id="south-east-chamber">
+    <rect x="530" y="360" width="340" height="185" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <rect x="530" y="360" width="340" height="30" rx="6" fill="#b45309"/>
+    <text x="700" y="380" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ENG-210: PROJECT &amp; INCUBATION CELL</text>
+    <text x="700" y="445" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#78350f" text-anchor="middle">Innovation &amp; Capstone Project Hub</text>
+    <text x="700" y="468" font-family="Inter, sans-serif" font-size="11" fill="#92400e" text-anchor="middle">AI Mentorship Desk &amp; Discussion Rooms</text>
+    <!-- Door -->
+    <path d="M 670 360 Q 690 380 710 360" fill="none" stroke="#b45309" stroke-width="2"/>
+  </g>
+
+  <!-- Title & Watermark Banner -->
+  <rect x="60" y="10" width="560" height="24" rx="4" fill="#0f172a"/>
+  <text x="70" y="26" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">YTC CAMPUS NAVIGATOR | ENGINEERING BLOCK (ENG-B) - FLOOR 2</text>
+  <text x="940" y="585" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8" text-anchor="end">* Demonstrative academic floor plan. Ground-truth surveyed measurements can be calibrated.</text>
+</svg>
