@@ -29,6 +29,7 @@ wheels/
 .installed.cfg
 *.egg
 .pytest_cache/
+pytest-cache-files*/
 .coverage
 htmlcov/
 *.sqlite3

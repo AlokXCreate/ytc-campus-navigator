@@ -6,6 +6,7 @@ from app.core.config import settings
 from app.database.seed_data import seed_database
 from app.api.v1 import (
     health,
+    map as map_router,
     buildings,
     rooms,
     facilities,
@@ -13,6 +14,8 @@ from app.api.v1 import (
     floor_plans,
     campus,
     paths,
+    routes,
+    geojson,
     auth
 )
 
@@ -25,12 +28,11 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"Database seed initialization warning: {e}")
     yield
-    # Shutdown logic if needed
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="Backend REST API and Pathfinding Engine for Yashoda Technical Campus Navigator (Satara, Maharashtra).",
-    version="1.0.0",
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan
@@ -59,6 +61,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # Include API v1 Routers
 app.include_router(health.router, prefix=settings.API_V1_STR)
+app.include_router(map_router.router, prefix=settings.API_V1_STR)
 app.include_router(buildings.router, prefix=settings.API_V1_STR)
 app.include_router(rooms.router, prefix=settings.API_V1_STR)
 app.include_router(facilities.router, prefix=settings.API_V1_STR)
@@ -66,6 +69,9 @@ app.include_router(locations.router, prefix=settings.API_V1_STR)
 app.include_router(floor_plans.router, prefix=settings.API_V1_STR)
 app.include_router(campus.router, prefix=settings.API_V1_STR)
 app.include_router(paths.router, prefix=settings.API_V1_STR)
+app.include_router(routes.router, prefix=settings.API_V1_STR)
+app.include_router(routes.nav_router, prefix=settings.API_V1_STR)
+app.include_router(geojson.router, prefix=settings.API_V1_STR)
 app.include_router(auth.router, prefix=settings.API_V1_STR)
 
 @app.get("/")

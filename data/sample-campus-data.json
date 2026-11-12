@@ -11,6 +11,28 @@
       "note": "Demonstration coordinates for Wadhe Phata / YTC Satara. Replaceable with surveyed ground-truth coordinates."
     }
   },
+  "campus_boundary": {
+    "type": "Feature",
+    "properties": {
+      "name": "YTC Satara Main Campus Boundary",
+      "institution": "Yashoda Technical Campus, Satara",
+      "area_hectares": 8.4,
+      "is_demonstration": true
+    },
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [74.0185, 17.7198],
+          [74.0228, 17.7198],
+          [74.0232, 17.7245],
+          [74.0188, 17.7245],
+          [74.0185, 17.7215],
+          [74.0185, 17.7198]
+        ]
+      ]
+    }
+  },
   "buildings": [
     {
       "id": "bldg-a",
@@ -145,6 +167,218 @@
       "available_floors": [0],
       "building_type": "sports",
       "image_url": "/images/bldg-sports.jpg",
+      "is_active": true
+    }
+  ],
+  "points_of_interest": [
+    {
+      "id": "poi-gate",
+      "name": "Main Entrance & Security Gate",
+      "category": "gate",
+      "description": "Primary entry and exit point on Wadhe Phata connecting to NH-4 highway.",
+      "latitude": 17.7210,
+      "longitude": 74.0190,
+      "building_id": null,
+      "entrance_latitude": 17.7210,
+      "entrance_longitude": 74.0190,
+      "icon": "DoorOpen",
+      "image": "/images/poi-gate.jpg",
+      "search_keywords": "gate, entrance, security, highway, wadhe phata, nh4",
+      "is_active": true
+    },
+    {
+      "id": "poi-park-a",
+      "name": "Parking Area A (Students & Visitors)",
+      "category": "parking",
+      "description": "Main parking for two-wheelers and four-wheelers near Administration Building.",
+      "latitude": 17.7213,
+      "longitude": 74.0193,
+      "building_id": null,
+      "entrance_latitude": 17.7213,
+      "entrance_longitude": 74.0193,
+      "icon": "Car",
+      "image": "/images/poi-parking.jpg",
+      "search_keywords": "parking, bike, car, vehicle, two wheeler",
+      "is_active": true
+    },
+    {
+      "id": "poi-park-b",
+      "name": "Parking Area B (Hostel & Workshop)",
+      "category": "parking",
+      "description": "Rear campus parking area dedicated for hostel residents and workshop staff.",
+      "latitude": 17.7226,
+      "longitude": 74.0218,
+      "building_id": null,
+      "entrance_latitude": 17.7226,
+      "entrance_longitude": 74.0218,
+      "icon": "Car",
+      "image": "/images/poi-parking-b.jpg",
+      "search_keywords": "parking, rear parking, hostel parking",
+      "is_active": true
+    },
+    {
+      "id": "poi-adm-office",
+      "name": "Directorate & Principal Office",
+      "category": "admin",
+      "description": "Main administration, Principal office, and student services counters.",
+      "latitude": 17.7216,
+      "longitude": 74.0202,
+      "building_id": "bldg-a",
+      "entrance_latitude": 17.7216,
+      "entrance_longitude": 74.0202,
+      "icon": "Briefcase",
+      "image": "/images/poi-admin.jpg",
+      "search_keywords": "principal, director, administration, exam, fee counter, registrar, adm-a",
+      "is_active": true
+    },
+    {
+      "id": "poi-aids-dept",
+      "name": "AI & Data Science Department",
+      "category": "department",
+      "description": "Academic offices, AI research chambers, and Deep Learning laboratories on Floor 2.",
+      "latitude": 17.7222,
+      "longitude": 74.0207,
+      "building_id": "bldg-b",
+      "entrance_latitude": 17.7222,
+      "entrance_longitude": 74.0207,
+      "icon": "Sparkles",
+      "image": "/images/poi-aids.jpg",
+      "search_keywords": "ai, data science, aids, artificial intelligence, eng-b, floor 2",
+      "is_active": true
+    },
+    {
+      "id": "poi-comp-dept",
+      "name": "Computer Engineering Department",
+      "category": "department",
+      "description": "Computer Engineering HOD, faculty rooms, and software development labs on Floor 1.",
+      "latitude": 17.7223,
+      "longitude": 74.0206,
+      "building_id": "bldg-b",
+      "entrance_latitude": 17.7222,
+      "entrance_longitude": 74.0207,
+      "icon": "Code",
+      "image": "/images/poi-computer.jpg",
+      "search_keywords": "computer, cse, software, coding, floor 1, eng-b",
+      "is_active": true
+    },
+    {
+      "id": "poi-library",
+      "name": "Central Library & Knowledge Hub",
+      "category": "library",
+      "description": "Over 40,000 academic volumes, journal subscriptions, and digital study cubicles.",
+      "latitude": 17.7213,
+      "longitude": 74.0211,
+      "building_id": "bldg-d",
+      "entrance_latitude": 17.7213,
+      "entrance_longitude": 74.0211,
+      "icon": "BookOpen",
+      "image": "/images/poi-library.jpg",
+      "search_keywords": "library, books, reading, journals, quiet study, e-resource, lib-d",
+      "is_active": true
+    },
+    {
+      "id": "poi-workshop",
+      "name": "Central Workshop & Innovation Lab",
+      "category": "workshop",
+      "description": "Hands-on mechanical machining, welding, carpentry, and robotics testing areas.",
+      "latitude": 17.7230,
+      "longitude": 74.0213,
+      "building_id": "bldg-e",
+      "entrance_latitude": 17.7230,
+      "entrance_longitude": 74.0213,
+      "icon": "Wrench",
+      "image": "/images/poi-workshop.jpg",
+      "search_keywords": "workshop, mechanical, robotics, machining, welding, tools, ws-e",
+      "is_active": true
+    },
+    {
+      "id": "poi-canteen",
+      "name": "Student Cafeteria & Food Court",
+      "category": "canteen",
+      "description": "Multi-cuisine fresh meals, refreshments, tea, coffee, and open dining tables.",
+      "latitude": 17.7209,
+      "longitude": 74.0199,
+      "building_id": "bldg-f",
+      "entrance_latitude": 17.7209,
+      "entrance_longitude": 74.0199,
+      "icon": "Coffee",
+      "image": "/images/poi-canteen.jpg",
+      "search_keywords": "canteen, food, cafeteria, breakfast, lunch, tea, snacks, can-f",
+      "is_active": true
+    },
+    {
+      "id": "poi-boys-hostel",
+      "name": "Boys Hostel Complex",
+      "category": "hostel",
+      "description": "Four-storey residential quarters with high-speed internet and recreation zone.",
+      "latitude": 17.7234,
+      "longitude": 74.0221,
+      "building_id": "bldg-g",
+      "entrance_latitude": 17.7234,
+      "entrance_longitude": 74.0221,
+      "icon": "Home",
+      "image": "/images/poi-hostel.jpg",
+      "search_keywords": "hostel, boys hostel, residence, rooms, mess",
+      "is_active": true
+    },
+    {
+      "id": "poi-girls-hostel",
+      "name": "Girls Hostel Complex",
+      "category": "hostel",
+      "description": "Secure residential complex with round-the-clock security and reading rooms.",
+      "latitude": 17.7237,
+      "longitude": 74.0201,
+      "building_id": "bldg-h",
+      "entrance_latitude": 17.7237,
+      "entrance_longitude": 74.0201,
+      "icon": "Home",
+      "image": "/images/poi-hostel-girls.jpg",
+      "search_keywords": "girls hostel, ladies hostel, residence, secure",
+      "is_active": true
+    },
+    {
+      "id": "poi-sports",
+      "name": "Sports Complex & Athletic Ground",
+      "category": "sports",
+      "description": "Cricket field, basketball court, volleyball ground, and athletic running tracks.",
+      "latitude": 17.7204,
+      "longitude": 74.0218,
+      "building_id": "bldg-i",
+      "entrance_latitude": 17.7204,
+      "entrance_longitude": 74.0218,
+      "icon": "Trophy",
+      "image": "/images/poi-sports.jpg",
+      "search_keywords": "sports, cricket, basketball, athletic ground, football, fitness, sprt-i",
+      "is_active": true
+    },
+    {
+      "id": "poi-health",
+      "name": "Health & First Aid Center",
+      "category": "medical",
+      "description": "First-aid medical support, resting beds, and emergency care.",
+      "latitude": 17.7217,
+      "longitude": 74.0200,
+      "building_id": "bldg-a",
+      "entrance_latitude": 17.7216,
+      "entrance_longitude": 74.0202,
+      "icon": "HeartPulse",
+      "image": "/images/poi-health.jpg",
+      "search_keywords": "doctor, clinic, medical, first aid, emergency, health",
+      "is_active": true
+    },
+    {
+      "id": "poi-atm",
+      "name": "ATM & Student Stationery Center",
+      "category": "facility",
+      "description": "24/7 Cash withdrawal ATM, photocopying, printing, and spiral binding service.",
+      "latitude": 17.7211,
+      "longitude": 74.0196,
+      "building_id": null,
+      "entrance_latitude": 17.7211,
+      "entrance_longitude": 74.0196,
+      "icon": "CreditCard",
+      "image": "/images/poi-atm.jpg",
+      "search_keywords": "atm, cash, xerox, print, stationery, banking",
       "is_active": true
     }
   ],
@@ -445,6 +679,90 @@
       "geometry": [
         [17.7213, 74.0211],
         [17.7204, 74.0218]
+      ]
+    },
+    {
+      "id": "path-09",
+      "source_node": "bldg_a_entrance",
+      "destination_node": "bldg_c_entrance",
+      "distance": 115.0,
+      "path_type": "pedestrian_walkway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7216, 74.0202],
+        [17.7225, 74.0196]
+      ]
+    },
+    {
+      "id": "path-10",
+      "source_node": "bldg_c_entrance",
+      "destination_node": "girls_hostel_entrance",
+      "distance": 120.0,
+      "path_type": "paved_walkway",
+      "accessibility": "accessible",
+      "geometry": [
+        [17.7225, 74.0196],
+        [17.7237, 74.0201]
+      ]
+    },
+    {
+      "id": "path-11",
+      "source_node": "bldg_b_entrance",
+      "destination_node": "parking_b",
+      "distance": 110.0,
+      "path_type": "paved_road",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7222, 74.0207],
+        [17.7226, 74.0218]
+      ]
+    },
+    {
+      "id": "path-12",
+      "source_node": "parking_b",
+      "destination_node": "boys_hostel_entrance",
+      "distance": 90.0,
+      "path_type": "paved_walkway",
+      "accessibility": "accessible",
+      "geometry": [
+        [17.7226, 74.0218],
+        [17.7234, 74.0221]
+      ]
+    },
+    {
+      "id": "path-13",
+      "source_node": "workshop_entrance",
+      "destination_node": "boys_hostel_entrance",
+      "distance": 95.0,
+      "path_type": "connecting_path",
+      "accessibility": "accessible",
+      "geometry": [
+        [17.7230, 74.0213],
+        [17.7234, 74.0221]
+      ]
+    },
+    {
+      "id": "path-14",
+      "source_node": "canteen_entrance",
+      "destination_node": "sports_ground",
+      "distance": 170.0,
+      "path_type": "secondary_pathway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7209, 74.0199],
+        [17.7204, 74.0218]
+      ]
+    },
+    {
+      "id": "path-15",
+      "source_node": "bldg_b_entrance",
+      "destination_node": "lib_entrance",
+      "distance": 105.0,
+      "path_type": "pedestrian_walkway",
+      "accessibility": "wheelchair_friendly",
+      "geometry": [
+        [17.7222, 74.0207],
+        [17.7213, 74.0211]
       ]
     }
   ],

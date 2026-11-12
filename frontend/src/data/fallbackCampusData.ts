@@ -1,4 +1,13 @@
-import { CampusSummary, Building, Room, Facility, FloorPlan, CampusPath } from '../types/campus';
+import {
+  CampusSummary,
+  Building,
+  Room,
+  Facility,
+  PointOfInterest,
+  CampusBoundary,
+  FloorPlan,
+  CampusPath
+} from '../types/campus';
 
 export const fallbackCampusSummary: CampusSummary = {
   institution_name: "Yashoda Technical Campus",
@@ -8,11 +17,47 @@ export const fallbackCampusSummary: CampusSummary = {
   total_buildings: 9,
   total_rooms: 11,
   total_facilities: 6,
+  total_pois: 14,
+  total_paths: 15,
   total_floor_plans: 2,
   center_latitude: 17.7215,
   center_longitude: 74.0205,
-  building_types: ["Academic Engineering", "Administrative Academic", "Academic Pharmacy", "Library", "Workshop", "Amenity", "Residential", "Sports"],
+  building_types: [
+    "Academic Engineering",
+    "Administrative Academic",
+    "Academic Pharmacy",
+    "Library",
+    "Workshop",
+    "Amenity",
+    "Residential",
+    "Sports"
+  ],
   is_demo_dataset: true
+};
+
+export const fallbackCampusBoundary: CampusBoundary = {
+  id: "ytc-main-boundary",
+  name: "YTC Satara Main Campus Boundary",
+  geojson_data: {
+    type: "Feature",
+    properties: {
+      name: "YTC Satara Main Campus Boundary",
+      institution: "Yashoda Technical Campus, Satara"
+    },
+    geometry: {
+      type: "Polygon",
+      coordinates: [
+        [
+          [74.0185, 17.7198],
+          [74.0228, 17.7198],
+          [74.0232, 17.7245],
+          [74.0188, 17.7245],
+          [74.0185, 17.7215],
+          [74.0185, 17.7198]
+        ]
+      ]
+    }
+  }
 };
 
 export const fallbackBuildings: Building[] = [
@@ -144,6 +189,113 @@ export const fallbackBuildings: Building[] = [
   }
 ];
 
+export const fallbackPOIs: PointOfInterest[] = [
+  {
+    id: "poi-gate",
+    name: "Main Entrance & Security Gate",
+    category: "gate",
+    description: "Primary entry and exit point on Wadhe Phata connecting to NH-4 highway.",
+    latitude: 17.7210,
+    longitude: 74.0190,
+    entrance_latitude: 17.7210,
+    entrance_longitude: 74.0190,
+    icon: "DoorOpen",
+    is_active: true
+  },
+  {
+    id: "poi-park-a",
+    name: "Parking Area A (Students & Visitors)",
+    category: "parking",
+    description: "Main parking for two-wheelers and four-wheelers near Administration Building.",
+    latitude: 17.7213,
+    longitude: 74.0193,
+    icon: "Car",
+    is_active: true
+  },
+  {
+    id: "poi-park-b",
+    name: "Parking Area B (Hostel & Workshop)",
+    category: "parking",
+    description: "Rear campus parking area dedicated for hostel residents and workshop staff.",
+    latitude: 17.7226,
+    longitude: 74.0218,
+    icon: "Car",
+    is_active: true
+  },
+  {
+    id: "poi-adm-office",
+    name: "Directorate & Principal Office",
+    category: "admin",
+    description: "Main administration, Principal office, and student services counters.",
+    latitude: 17.7216,
+    longitude: 74.0202,
+    building_id: "bldg-a",
+    building_name: "Main Administrative & Academic Building",
+    icon: "Briefcase",
+    is_active: true
+  },
+  {
+    id: "poi-aids-dept",
+    name: "AI & Data Science Department",
+    category: "department",
+    description: "Academic offices, AI research chambers, and Deep Learning laboratories on Floor 2.",
+    latitude: 17.7222,
+    longitude: 74.0207,
+    building_id: "bldg-b",
+    building_name: "Engineering & Technology Block",
+    icon: "Sparkles",
+    is_active: true
+  },
+  {
+    id: "poi-library",
+    name: "Central Library & Knowledge Hub",
+    category: "library",
+    description: "Over 40,000 academic volumes, journal subscriptions, and digital study cubicles.",
+    latitude: 17.7213,
+    longitude: 74.0211,
+    building_id: "bldg-d",
+    building_name: "Central Library & Knowledge Resource Center",
+    icon: "BookOpen",
+    is_active: true
+  },
+  {
+    id: "poi-canteen",
+    name: "Student Cafeteria & Food Court",
+    category: "canteen",
+    description: "Multi-cuisine fresh meals, refreshments, tea, coffee, and open dining tables.",
+    latitude: 17.7209,
+    longitude: 74.0199,
+    building_id: "bldg-f",
+    building_name: "Student Cafeteria & Canteen",
+    icon: "Coffee",
+    is_active: true
+  },
+  {
+    id: "poi-workshop",
+    name: "Central Workshop & Innovation Lab",
+    category: "workshop",
+    description: "Hands-on mechanical machining, welding, carpentry, and robotics testing areas.",
+    latitude: 17.7230,
+    longitude: 74.0213,
+    building_id: "bldg-e",
+    building_name: "Central Workshop & Innovation Hub",
+    icon: "Wrench",
+    is_active: true
+  },
+  {
+    id: "poi-sports",
+    name: "Sports Complex & Athletic Ground",
+    category: "sports",
+    description: "Cricket field, basketball court, volleyball ground, and athletic running tracks.",
+    latitude: 17.7204,
+    longitude: 74.0218,
+    building_id: "bldg-i",
+    building_name: "Sports Complex & Athletic Ground",
+    icon: "Trophy",
+    is_active: true
+  }
+];
+
 export const fallbackRooms: Room[] = [
   {
     id: "rm-101",
@@ -155,19 +307,6 @@ export const fallbackRooms: Room[] = [
     room_type: "administrative",
     description: "Executive administration, Principal reception, and official inquiry chamber.",
     relative_x: 0.25,
-    relative_y: 0.35,
-    is_active: true
-  },
-  {
-    id: "rm-102",
-    room_name: "Student Section & Examination Cell",
-    room_number: "ADM-004",
-    building_id: "bldg-a",
-    building_name: "Main Administrative & Academic Building",
-    floor: 0,
-    room_type: "administrative",
-    description: "Admission verification, fee payment, examination hall tickets, and scholarship documentation.",
-    relative_x: 0.70,
     relative_y: 0.35,
     is_active: true
   },
@@ -196,32 +335,6 @@ export const fallbackRooms: Room[] = [
     relative_x: 0.40,
     relative_y: 0.25,
     is_active: true
-  },
-  {
-    id: "rm-203",
-    room_name: "Big Data Analytics & Cloud Lab",
-    room_number: "ENG-206",
-    building_id: "bldg-b",
-    building_name: "Engineering & Technology Block",
-    floor: 2,
-    room_type: "laboratory",
-    description: "High-speed networked terminals for Distributed Computing, Hadoop, Spark, and Data Engineering workflows.",
-    relative_x: 0.75,
-    relative_y: 0.25,
-    is_active: true
-  },
-  {
-    id: "rm-204",
-    room_name: "AI & DS Classroom (Third Year)",
-    room_number: "ENG-208",
-    building_id: "bldg-b",
-    building_name: "Engineering & Technology Block",
-    floor: 2,
-    room_type: "classroom",
-    description: "Smart interactive lecture hall with HD projector and audio amplification for TY AI & DS.",
-    relative_x: 0.35,
-    relative_y: 0.75,
-    is_active: true
   }
 ];
 
@@ -232,8 +345,8 @@ export const fallbackFacilities: Facility[] = [
     facility_type: "gate",
     latitude: 17.7210,
     longitude: 74.0190,
-    description: "Primary campus entrance on Wadhe Phata connecting NH-4. Visitor registration and security desk.",
-    opening_information: "24/7 Access for authorized visitors & campus vehicles"
+    description: "Primary campus entrance on Wadhe Phata connecting NH-4.",
+    opening_information: "24/7 Access"
   },
   {
     id: "fac-02",
@@ -242,46 +355,17 @@ export const fallbackFacilities: Facility[] = [
     building_id: "bldg-f",
     latitude: 17.7208,
     longitude: 74.0198,
-    description: "Breakfast, lunch, tea, and snack services with clean filtered drinking water stations.",
-    opening_information: "Monday to Saturday: 8:00 AM – 7:00 PM"
+    description: "Breakfast, lunch, tea, and snack services.",
+    opening_information: "Mon-Sat: 8:00 AM – 7:00 PM"
   },
   {
     id: "fac-03",
-    name: "Vehicle Parking Area A (Students & Visitors)",
+    name: "Vehicle Parking Area A",
     facility_type: "parking",
     latitude: 17.7213,
     longitude: 74.0193,
-    description: "Covered two-wheeler and four-wheeler parking lots near Main Admin Building.",
+    description: "Covered parking lots near Main Admin Building.",
     opening_information: "Open daily: 7:30 AM – 8:30 PM"
-  },
-  {
-    id: "fac-04",
-    name: "Health Center & First Aid Ward",
-    facility_type: "medical",
-    building_id: "bldg-a",
-    latitude: 17.7217,
-    longitude: 74.0200,
-    description: "Emergency first-aid, doctor on call, ambulance assistance, and resting beds.",
-    opening_information: "Monday to Saturday: 9:00 AM – 5:30 PM"
-  },
-  {
-    id: "fac-05",
-    name: "ATM & Student Utility Store",
-    facility_type: "banking",
-    latitude: 17.7211,
-    longitude: 74.0196,
-    description: "24/7 ATM kiosk, photocopy, stationery printing, and spiral binding shop.",
-    opening_information: "Stationery: 8:30 AM – 6:30 PM; ATM: 24/7"
-  },
-  {
-    id: "fac-06",
-    name: "Outdoor Basketball & Badminton Court",
-    facility_type: "sports",
-    building_id: "bldg-i",
-    latitude: 17.7202,
-    longitude: 74.0220,
-    description: "All-weather concrete court with floodlights for evening athletic activities.",
-    opening_information: "Open daily: 6:00 AM – 8:00 PM"
   }
 ];
 
@@ -335,5 +419,23 @@ export const fallbackPaths: CampusPath[] = [
     path_type: "pedestrian_walkway",
     accessibility: "wheelchair_friendly",
     geometry: [[17.7216, 74.0202], [17.7222, 74.0207]]
+  },
+  {
+    id: "path-04",
+    source_node: "bldg_a_entrance",
+    destination_node: "lib_entrance",
+    distance: 95.0,
+    path_type: "garden_pathway",
+    accessibility: "accessible",
+    geometry: [[17.7216, 74.0202], [17.7213, 74.0211]]
+  },
+  {
+    id: "path-05",
+    source_node: "bldg_b_entrance",
+    destination_node: "workshop_entrance",
+    distance: 125.0,
+    path_type: "paved_walkway",
+    accessibility: "accessible",
+    geometry: [[17.7222, 74.0207], [17.7230, 74.0213]]
   }
 ];

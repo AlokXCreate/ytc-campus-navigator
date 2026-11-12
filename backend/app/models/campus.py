@@ -91,6 +91,31 @@ class FloorPlan(Base):
 
     building = relationship("Building", back_populates="floor_plans")
 
+class PointOfInterest(Base):
+    __tablename__ = "points_of_interest"
+
+    id = Column(String(50), primary_key=True, index=True)
+    name = Column(String(150), nullable=False, index=True)
+    category = Column(String(50), nullable=False, index=True)
+    description = Column(Text, nullable=True)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    building_id = Column(String(50), ForeignKey("buildings.id"), nullable=True)
+    entrance_latitude = Column(Float, nullable=True)
+    entrance_longitude = Column(Float, nullable=True)
+    icon = Column(String(50), default="MapPin")
+    image = Column(String(255), nullable=True)
+    search_keywords = Column(Text, nullable=True)
+    is_active = Column(Boolean, default=True)
+
+class CampusBoundary(Base):
+    __tablename__ = "campus_boundaries"
+
+    id = Column(String(50), primary_key=True, index=True)
+    name = Column(String(150), nullable=False)
+    geojson_data = Column(JSON, nullable=False)
+    properties = Column(JSON, nullable=True)
+
 class SearchHistory(Base):
     __tablename__ = "search_history"
 

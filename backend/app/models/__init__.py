@@ -4,6 +4,8 @@ from app.models.campus import (
     Facility,
     CampusPath,
     FloorPlan,
+    PointOfInterest,
+    CampusBoundary,
     SearchHistory,
     User
 )
@@ -14,6 +16,8 @@ __all__ = [
     "Facility",
     "CampusPath",
     "FloorPlan",
+    "PointOfInterest",
+    "CampusBoundary",
     "SearchHistory",
     "User"
 ]
