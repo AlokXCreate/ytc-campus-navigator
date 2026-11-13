@@ -15,7 +15,8 @@ from app.models.campus import (
     IndoorNavigationNode,
     IndoorNavigationEdge,
     FloorTransition,
-    User
+    User,
+    ActivityLog
 )
 
 def get_sample_data():
@@ -283,15 +284,44 @@ def seed_database(db: Session = None, force_reseed: bool = False):
         db.commit()
         print(f"[OK] Seeded {len(data.get('floor_transitions', []))} vertical floor transitions.")
 
-        # 12. Seed Default Users
-        if db.query(User).count() == 0:
+        # 12. Seed Default Users & RBAC
+        admin_user = db.query(User).filter(User.email == "admin@ytc.edu.in").first()
+        if not admin_user:
             admin_user = User(
                 email="admin@ytc.edu.in",
-                full_name="YTC Campus Administrator",
+                full_name="YTC System Administrator",
                 hashed_password="pbkdf2:sha256:ytcadmin2026",
-                role="admin",
+                role="superadmin",
                 is_active=True
             )
+            db.add(admin_user)
+        else:
+            admin_user.role = "superadmin"
+
+        mgr_user = db.query(User).filter(User.email == "manager@ytc.edu.in").first()
+        if not mgr_user:
+            mgr_user = User(
+                email="manager@ytc.edu.in",
+                full_name="YTC Campus Facility Manager",
+                hashed_password="pbkdf2:sha256:ytcmanager2026",
+                role="campus_admin",
+                is_active=True
+            )
+            db.add(mgr_user)
+
+        viewer_user = db.query(User).filter(User.email == "viewer@ytc.edu.in").first()
+        if not viewer_user:
+            viewer_user = User(
+                email="viewer@ytc.edu.in",
+                full_name="Academic Auditor / Visitor",
+                hashed_password="pbkdf2:sha256:ytcviewer2026",
+                role="viewer",
+                is_active=True
+            )
+            db.add(viewer_user)
+
+        student_user = db.query(User).filter(User.email == "student@ytc.edu.in").first()
+        if not student_user:
             student_user = User(
                 email="student@ytc.edu.in",
                 full_name="AI & DS Student",
@@ -299,10 +329,47 @@ def seed_database(db: Session = None, force_reseed: bool = False):
                 role="student",
                 is_active=True
             )
-            db.add(admin_user)
             db.add(student_user)
+
+        db.commit()
+        print("[OK] Seeded/Verified RBAC campus user accounts (superadmin, campus_admin, viewer, student).")
+
+        # 13. Seed Initial Activity Logs
+        if db.query(ActivityLog).count() == 0:
+            init_logs = [
+                ActivityLog(
+                    user_email="admin@ytc.edu.in",
+                    action="create",
+                    entity_type="building",
+                    entity_id="bldg-b",
+                    summary="Configured Engineering & Technology Block with 3 accessible storeys."
+                ),
+                ActivityLog(
+                    user_email="admin@ytc.edu.in",
+                    action="upload",
+                    entity_type="floor_plan",
+                    entity_id="bldg-b-fl-2",
+                    summary="Uploaded architectural vector SVG floor plan for Second Floor (AI & DS Lab)."
+                ),
+                ActivityLog(
+                    user_email="manager@ytc.edu.in",
+                    action="update",
+                    entity_type="room",
+                    entity_id="rm-b-202",
+                    summary="Positioned relative coordinates for AI & Deep Learning Lab at (0.50, 0.28)."
+                ),
+                ActivityLog(
+                    user_email="admin@ytc.edu.in",
+                    action="import",
+                    entity_type="geojson",
+                    entity_id="campus-boundary",
+                    summary="Imported survey boundary and outdoor walking paths for YTC Satara campus."
+                )
+            ]
+            for log in init_logs:
+                db.add(log)
             db.commit()
-            print("[OK] Seeded default campus accounts (admin@ytc.edu.in, student@ytc.edu.in).")
+            print("[OK] Seeded initial campus administration activity audit logs.")
 
     finally:
         if close_db:

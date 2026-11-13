@@ -11,7 +11,8 @@ from app.models.campus import (
     IndoorNavigationEdge,
     FloorTransition,
     SearchHistory,
-    User
+    User,
+    ActivityLog
 )
 
 __all__ = [
@@ -27,5 +28,6 @@ __all__ = [
     "IndoorNavigationEdge",
     "FloorTransition",
     "SearchHistory",
-    "User"
+    "User",
+    "ActivityLog"
 ]

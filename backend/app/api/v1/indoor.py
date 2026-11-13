@@ -508,3 +508,4 @@ def delete_indoor_room(
     db.delete(room)
     db.commit()
     return {"success": True, "message": f"Room '{room_id}' successfully deleted."}
+

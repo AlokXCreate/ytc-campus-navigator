@@ -313,6 +313,38 @@ export interface User {
   id: number;
   email: string;
   full_name: string;
-  role: 'student' | 'faculty' | 'visitor' | 'admin';
+  role: 'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer';
   is_active: boolean;
+  created_at?: string;
+}
+
+export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+  user: User;
+}
+
+export interface ActivityLog {
+  id: number;
+  user_email?: string;
+  action: 'create' | 'update' | 'delete' | 'import' | 'upload' | 'login';
+  entity_type: 'building' | 'floor' | 'room' | 'facility' | 'pathway' | 'indoor_pathway' | 'floor_plan' | 'user' | 'geojson';
+  entity_id?: string;
+  summary: string;
+  timestamp: string;
+}
+
+export interface AdminStats {
+  total_buildings: number;
+  total_floors: number;
+  total_rooms: number;
+  total_facilities: number;
+  total_pois: number;
+  total_outdoor_paths: number;
+  total_indoor_nodes: number;
+  total_indoor_edges: number;
+  total_floor_transitions: number;
+  total_users: number;
+  incomplete_records: number;
+  recent_activities: ActivityLog[];
 }

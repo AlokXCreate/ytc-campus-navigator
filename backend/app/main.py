@@ -17,7 +17,8 @@ from app.api.v1 import (
     routes,
     geojson,
     indoor,
-    auth
+    auth,
+    admin
 )
 
 @asynccontextmanager
@@ -75,6 +76,7 @@ app.include_router(routes.nav_router, prefix=settings.API_V1_STR)
 app.include_router(geojson.router, prefix=settings.API_V1_STR)
 app.include_router(indoor.router, prefix=settings.API_V1_STR)
 app.include_router(auth.router, prefix=settings.API_V1_STR)
+app.include_router(admin.router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

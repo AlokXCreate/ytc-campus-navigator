@@ -5,7 +5,8 @@ import {
   Room,
   PointOfInterest,
   CampusBoundary,
-  CampusSummary
+  CampusSummary,
+  User
 } from '../types/campus';
 import { api } from '../services/api';
 
@@ -22,8 +23,11 @@ interface CampusContextType {
   isOnline: boolean;
   isLoading: boolean;
   showIntro: boolean;
-  userRole: 'student' | 'faculty' | 'visitor' | 'admin';
-  setUserRole: (role: 'student' | 'faculty' | 'visitor' | 'admin') => void;
+  userRole: 'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer';
+  currentUser: User | null;
+  loginAdmin: (token: string, user: User) => void;
+  logoutAdmin: () => void;
+  setUserRole: (role: 'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer') => void;
   setSelectedBuilding: (b: Building | null) => void;
   setSelectedFacility: (f: Facility | null) => void;
   setSelectedRoom: (r: Room | null) => void;
@@ -47,9 +51,49 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [selectedPOI, setSelectedPOI] = useState<PointOfInterest | null>(null);
 
-  const [isOnline, setIsOnline] = useState<boolean>(true);
+  const [isOnline, setIsOnline] = useState<boolean>(typeof navigator !== 'undefined' ? navigator.onLine : true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [userRole, setUserRole] = useState<'student' | 'faculty' | 'visitor' | 'admin'>('student');
+
+  // User auth state
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    try {
+      const stored = localStorage.getItem('ytc_auth_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [userRole, setUserRole] = useState<'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer'>(() => {
+    try {
+      const stored = localStorage.getItem('ytc_auth_user');
+      if (stored) {
+        const u = JSON.parse(stored);
+        return u.role || 'student';
+      }
+      return 'student';
+    } catch {
+      return 'student';
+    }
+  });
+
+  const loginAdmin = (token: string, user: User) => {
+    api.setAuthToken(token);
+    setCurrentUser(user);
+    setUserRole(user.role as any);
+    try {
+      localStorage.setItem('ytc_auth_user', JSON.stringify(user));
+    } catch {}
+  };
+
+  const logoutAdmin = () => {
+    api.setAuthToken(null);
+    setCurrentUser(null);
+    setUserRole('student');
+    try {
+      localStorage.removeItem('ytc_auth_user');
+    } catch {}
+  };
 
   // Check intro session state
   const [showIntro, setShowIntro] = useState<boolean>(() => {
@@ -88,7 +132,7 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       setFacilities(facRes.data);
       setPointsOfInterest(poiRes.data);
       setCampusBoundary(boundRes.data);
-      setIsOnline(!sumRes.fromCache);
+      setIsOnline(!sumRes.fromCache && navigator.onLine);
     } catch (err) {
       console.warn("Campus data sync warning:", err);
       setIsOnline(false);
@@ -98,7 +142,23 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      refreshData();
+    };
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
     refreshData();
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, []);
 
   return (
@@ -117,6 +177,9 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         isLoading,
         showIntro,
         userRole,
+        currentUser,
+        loginAdmin,
+        logoutAdmin,
         setUserRole,
         setSelectedBuilding,
         setSelectedFacility,

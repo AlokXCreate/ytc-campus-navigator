@@ -4,6 +4,7 @@ import { CampusProvider, useCampus } from './context/CampusContext';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
 import { IntroSplash } from './components/common/IntroSplash';
+import { NetworkStatusBanner } from './components/common/NetworkStatusBanner';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -34,6 +35,9 @@ const AppContent: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        {/* Offline / Online Network Status Bar */}
+        <NetworkStatusBanner />
+
         <Header
           onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
           isMobileSidebarOpen={isMobileSidebarOpen}
@@ -59,7 +63,7 @@ const AppContent: React.FC = () => {
   );
 };
 
-export const App: React.FC = () => {
+export function App() {
   return (
     <BrowserRouter>
       <CampusProvider>
@@ -67,6 +71,6 @@ export const App: React.FC = () => {
       </CampusProvider>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

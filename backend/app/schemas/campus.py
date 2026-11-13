@@ -108,6 +108,8 @@ class PointOfInterestResponse(PointOfInterestBase):
     building_name: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
 
+POIResponse = PointOfInterestResponse
+
 # ============================
 # CAMPUS BOUNDARY SCHEMAS
 # ============================
@@ -386,9 +388,236 @@ class UserResponse(BaseModel):
     full_name: str
     role: str
     is_active: bool
+    created_at: Optional[datetime] = None
     model_config = ConfigDict(from_attributes=True)
 
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserResponse
+
+# ============================
+# ADMIN CRUD & AUDIT SCHEMAS
+# ============================
+class ActivityLogResponse(BaseModel):
+    id: int
+    user_email: Optional[str] = None
+    action: str
+    entity_type: str
+    entity_id: Optional[str] = None
+    summary: str
+    timestamp: datetime
+    model_config = ConfigDict(from_attributes=True)
+
+class ActivityLogCreate(BaseModel):
+    user_email: Optional[str] = None
+    action: str
+    entity_type: str
+    entity_id: Optional[str] = None
+    summary: str
+
+class AdminStatsResponse(BaseModel):
+    total_buildings: int
+    total_floors: int
+    total_rooms: int
+    total_facilities: int
+    total_pois: int
+    total_outdoor_paths: int
+    total_indoor_nodes: int
+    total_indoor_edges: int
+    total_floor_transitions: int
+    total_users: int
+    incomplete_records: int
+    recent_activities: List[ActivityLogResponse] = []
+
+class BuildingCreate(BaseModel):
+    id: str
+    name: str
+    building_code: str
+    description: Optional[str] = None
+    latitude: float
+    longitude: float
+    entrance_latitude: Optional[float] = None
+    entrance_longitude: Optional[float] = None
+    total_floors: int = 1
+    available_floors: List[int] = [0]
+    building_type: str = "academic"
+    image_url: Optional[str] = None
+    is_active: bool = True
+
+class BuildingUpdate(BaseModel):
+    name: Optional[str] = None
+    building_code: Optional[str] = None
+    description: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    entrance_latitude: Optional[float] = None
+    entrance_longitude: Optional[float] = None
+    total_floors: Optional[int] = None
+    available_floors: Optional[List[int]] = None
+    building_type: Optional[str] = None
+    image_url: Optional[str] = None
+    is_active: Optional[bool] = None
+
+class FloorCreate(BaseModel):
+    id: str
+    building_id: str
+    floor_number: int
+    floor_label: Optional[str] = None
+    floor_plan_image: str
+    image_width: int = 1000
+    image_height: int = 600
+    is_approximate: bool = True
+    is_active: bool = True
+
+class FloorUpdate(BaseModel):
+    floor_number: Optional[int] = None
+    floor_label: Optional[str] = None
+    floor_plan_image: Optional[str] = None
+    image_width: Optional[int] = None
+    image_height: Optional[int] = None
+    is_approximate: Optional[bool] = None
+    is_active: Optional[bool] = None
+
+class RoomCreate(BaseModel):
+    id: str
+    room_name: str
+    room_number: str
+    building_id: str
+    floor_id: Optional[str] = None
+    floor: int = 0
+    room_type: str = "classroom"
+    description: Optional[str] = None
+    relative_x: float = 0.5
+    relative_y: float = 0.5
+    is_accessible: bool = True
+    is_active: bool = True
+
+class RoomUpdate(BaseModel):
+    room_name: Optional[str] = None
+    room_number: Optional[str] = None
+    building_id: Optional[str] = None
+    floor_id: Optional[str] = None
+    floor: Optional[int] = None
+    room_type: Optional[str] = None
+    description: Optional[str] = None
+    relative_x: Optional[float] = None
+    relative_y: Optional[float] = None
+    is_accessible: Optional[bool] = None
+    is_active: Optional[bool] = None
+
+class FacilityCreate(BaseModel):
+    id: str
+    name: str
+    facility_type: str
+    building_id: Optional[str] = None
+    latitude: float
+    longitude: float
+    description: Optional[str] = None
+    opening_information: Optional[str] = None
+    image_url: Optional[str] = None
+
+class FacilityUpdate(BaseModel):
+    name: Optional[str] = None
+    facility_type: Optional[str] = None
+    building_id: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    description: Optional[str] = None
+    opening_information: Optional[str] = None
+    image_url: Optional[str] = None
+
+class POICreate(BaseModel):
+    id: str
+    name: str
+    category: str
+    description: Optional[str] = None
+    latitude: float
+    longitude: float
+    building_id: Optional[str] = None
+    entrance_latitude: Optional[float] = None
+    entrance_longitude: Optional[float] = None
+    icon: Optional[str] = "MapPin"
+    image: Optional[str] = None
+    search_keywords: Optional[str] = None
+    is_active: bool = True
+
+class POIUpdate(BaseModel):
+    name: Optional[str] = None
+    category: Optional[str] = None
+    description: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    building_id: Optional[str] = None
+    entrance_latitude: Optional[float] = None
+    entrance_longitude: Optional[float] = None
+    icon: Optional[str] = None
+    image: Optional[str] = None
+    search_keywords: Optional[str] = None
+    is_active: Optional[bool] = None
+
+class CampusPathCreate(BaseModel):
+    id: str
+    source_node: str
+    destination_node: str
+    distance: float
+    path_type: str = "pedestrian_paved"
+    accessibility: str = "fully_accessible"
+    geometry: Optional[List[List[float]]] = None
+
+class CampusPathUpdate(BaseModel):
+    source_node: Optional[str] = None
+    destination_node: Optional[str] = None
+    distance: Optional[float] = None
+    path_type: Optional[str] = None
+    accessibility: Optional[str] = None
+    geometry: Optional[List[List[float]]] = None
+
+class IndoorNodeCreate(BaseModel):
+    id: str
+    building_id: str
+    floor_id: str
+    floor_number: int = 0
+    node_type: str = "corridor"
+    node_name: str
+    relative_x: float
+    relative_y: float
+    room_id: Optional[str] = None
+
+class IndoorNodeUpdate(BaseModel):
+    floor_id: Optional[str] = None
+    floor_number: Optional[int] = None
+    node_type: Optional[str] = None
+    node_name: Optional[str] = None
+    relative_x: Optional[float] = None
+    relative_y: Optional[float] = None
+    room_id: Optional[str] = None
+
+class IndoorEdgeCreate(BaseModel):
+    id: str
+    building_id: str
+    floor_id: Optional[str] = None
+    source_node_id: str
+    destination_node_id: str
+    distance: float = 10.0
+    movement_type: str = "corridor"
+    accessible: bool = True
+    is_active: bool = True
+
+class IndoorEdgeUpdate(BaseModel):
+    distance: Optional[float] = None
+    movement_type: Optional[str] = None
+    accessible: Optional[bool] = None
+    is_active: Optional[bool] = None
+
+class UserCreateRequest(BaseModel):
+    email: str
+    full_name: str
+    password: str
+    role: str = "viewer"  # superadmin, campus_admin, viewer
+
+class UserUpdateRequest(BaseModel):
+    full_name: Optional[str] = None
+    password: Optional[str] = None
+    role: Optional[str] = None
+    is_active: Optional[bool] = None

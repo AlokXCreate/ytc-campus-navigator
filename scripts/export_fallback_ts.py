@@ -71,3 +71,4 @@ with open("frontend/src/data/fallbackCampusData.ts", "w", encoding="utf-8") as f
     f.write(ts_code)
 
 print("[OK] frontend/src/data/fallbackCampusData.ts successfully updated.")
+

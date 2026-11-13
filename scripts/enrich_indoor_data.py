@@ -526,3 +526,4 @@ print(f"  - {len(extended_rooms)} rooms")
 print(f"  - {len(indoor_nodes)} indoor nodes")
 print(f"  - {len(indoor_edges)} indoor edges")
 print(f"  - {len(floor_transitions)} floor transitions")
+

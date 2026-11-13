@@ -1,0 +1,49 @@
+{
+  "name": "YTC Campus Navigator",
+  "short_name": "YTC Navigator",
+  "description": "Smart Outdoor & Indoor Campus Navigation System for Yashoda Technical Campus, Satara",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "/icons/ytc-logo.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "education",
+    "navigation",
+    "travel",
+    "utilities"
+  ],
+  "shortcuts": [
+    {
+      "name": "Campus Map",
+      "short_name": "Map",
+      "description": "View interactive outdoor campus map and route planner",
+      "url": "/map",
+      "icons": [{ "src": "/icons/ytc-logo.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Indoor Navigation",
+      "short_name": "Indoor",
+      "description": "Navigate multi-storey buildings, floors, and classrooms",
+      "url": "/indoor",
+      "icons": [{ "src": "/icons/ytc-logo.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Directory",
+      "short_name": "Search",
+      "description": "Search campus buildings, labs, departments, and facilities",
+      "url": "/directory",
+      "icons": [{ "src": "/icons/ytc-logo.svg", "sizes": "96x96" }]
+    }
+  ]
+}

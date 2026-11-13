@@ -88,3 +88,4 @@ def test_indoor_unreachable_destination(db):
         destination_node_id="non_existent_room_node_999"
     )
     assert res["found"] is False
+

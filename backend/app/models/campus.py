@@ -199,3 +199,14 @@ class User(Base):
     role = Column(String(50), default="visitor")
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+class ActivityLog(Base):
+    __tablename__ = "activity_logs"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_email = Column(String(150), nullable=True, index=True)
+    action = Column(String(50), nullable=False, index=True)  # create, update, delete, import, upload, login
+    entity_type = Column(String(50), nullable=False, index=True)  # building, floor, room, facility, pathway, indoor_pathway, floor_plan, user, geojson
+    entity_id = Column(String(100), nullable=True)
+    summary = Column(Text, nullable=False)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow, index=True)
