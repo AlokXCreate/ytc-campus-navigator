@@ -22,7 +22,7 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
-  const { summary, userRole } = useCampus();
+  const { summary, userRole, setOnboardingStep } = useCampus();
 
   const navigationItems = [
     { name: 'Overview', path: '/dashboard', icon: LayoutDashboard },
@@ -108,8 +108,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           })}
         </nav>
 
-        {/* Bottom Sanskrit Motto & Help Card */}
-        <div className="p-4 border-t border-slate-800/80">
+        {/* Bottom Quick Controls & Sanskrit Motto */}
+        <div className="p-4 border-t border-slate-800/80 space-y-2.5">
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => {
+                onClose();
+                setOnboardingStep('intro');
+              }}
+              className="flex-1 py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-700/60 transition-colors text-center cursor-pointer"
+            >
+              Replay Intro
+            </button>
+            <button
+              onClick={() => {
+                onClose();
+                setOnboardingStep('profile_setup');
+              }}
+              className="flex-1 py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-700/60 transition-colors text-center cursor-pointer"
+            >
+              My Profile
+            </button>
+          </div>
+
           <div className="p-3 rounded-xl bg-gradient-to-r from-amber-500/10 to-yellow-500/5 border border-amber-500/20 text-center">
             <div className="text-[11px] font-bold text-amber-300">
               ॥ ज्ञानम् जीवनस्य भूषणम् ॥

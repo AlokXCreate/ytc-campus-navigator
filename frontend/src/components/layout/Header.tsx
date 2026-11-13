@@ -38,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
     isOnline,
     userRole,
     currentUser,
-    setAuthModalOpen,
+    setOnboardingStep,
     setSelectedBuilding,
     setSelectedRoom
   } = useCampus();
@@ -292,7 +292,7 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         ) : (
           <button
-            onClick={() => setAuthModalOpen(true)}
+            onClick={() => setOnboardingStep('auth')}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-blue-500/20 transition-all cursor-pointer"
           >
             <LogIn className="w-3.5 h-3.5" />

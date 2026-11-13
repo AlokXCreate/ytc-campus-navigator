@@ -344,3 +344,4 @@ export const AuthOnboardingModal: React.FC<AuthOnboardingModalProps> = ({
     </div>
   );
 };
+

@@ -372,3 +372,4 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({
     </div>
   );
 };
+

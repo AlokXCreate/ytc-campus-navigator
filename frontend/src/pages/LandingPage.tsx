@@ -20,7 +20,7 @@ import { getAssetUrl } from '../utils/assets';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const { summary, replayIntro, setAuthModalOpen, currentUser } = useCampus();
+  const { summary, replayIntro, setOnboardingStep, currentUser } = useCampus();
 
   return (
     <div className="space-y-10 pb-12">
@@ -66,7 +66,7 @@ export const LandingPage: React.FC = () => {
 
               {!currentUser && (
                 <button
-                  onClick={() => setAuthModalOpen(true)}
+                  onClick={() => setOnboardingStep('auth')}
                   className="px-4 py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold text-xs border border-amber-400/40 transition-colors cursor-pointer"
                 >
                   Sign In / Register

@@ -29,7 +29,7 @@ export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   onClose,
   onEditProfile
 }) => {
-  const { currentUser, logoutUser, userRole } = useCampus();
+  const { currentUser, logoutUser, setOnboardingStep } = useCampus();
 
   if (!isOpen || !currentUser) return null;
 
@@ -127,11 +127,25 @@ export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                 onClose();
                 onEditProfile();
               }}
-              className="w-full flex items-center justify-between px-4 py-2.5 bg-blue-50 hover:bg-blue-100/70 text-blue-700 font-bold rounded-xl border border-blue-200 transition-colors"
+              className="w-full flex items-center justify-between px-4 py-2.5 bg-blue-50 hover:bg-blue-100/70 text-blue-700 font-bold rounded-xl border border-blue-200 transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-2">
                 <Edit3 className="w-4 h-4" />
                 Edit Profile Information
+              </span>
+              <span className="text-xs">&rarr;</span>
+            </button>
+
+            <button
+              onClick={() => {
+                onClose();
+                setOnboardingStep('intro');
+              }}
+              className="w-full flex items-center justify-between px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-xl border border-amber-200 transition-colors cursor-pointer"
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-600" />
+                Replay Intro Animation
               </span>
               <span className="text-xs">&rarr;</span>
             </button>
@@ -171,3 +185,4 @@ export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
     </div>
   );
 };
+

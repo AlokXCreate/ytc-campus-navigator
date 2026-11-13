@@ -93,21 +93,21 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   });
 
   // Intro & Onboarding state
-  const [showIntro, setShowIntro] = useState<boolean>(() => {
-    try {
-      const seen = sessionStorage.getItem('ytc_intro_seen');
-      return seen !== 'true';
-    } catch {
-      return false;
-    }
-  });
+  const [showIntro, setShowIntro] = useState<boolean>(true);
 
   const [onboardingStep, setOnboardingStep] = useState<OnboardingStep>(() => {
     try {
+      const hash = window.location.hash;
+      if (hash.includes('/intro')) return 'intro';
+      if (hash.includes('/auth')) return 'auth';
+      if (hash.includes('/profile')) return 'profile_setup';
+
+      const sessionActive = sessionStorage.getItem('ytc_session_active');
       const storedUser = localStorage.getItem('ytc_auth_user');
-      if (storedUser) return 'ready';
-      const seen = sessionStorage.getItem('ytc_intro_seen');
-      return seen === 'true' ? 'ready' : 'intro';
+      if (sessionActive === 'true' && storedUser) {
+        return 'ready';
+      }
+      return 'intro';
     } catch {
       return 'intro';
     }
@@ -120,6 +120,7 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setUserRole(user.role as any);
     try {
       localStorage.setItem('ytc_auth_user', JSON.stringify(user));
+      sessionStorage.setItem('ytc_session_active', 'true');
     } catch {}
   };
 
@@ -144,7 +145,9 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setUserRole('student');
     try {
       localStorage.removeItem('ytc_auth_user');
+      sessionStorage.removeItem('ytc_session_active');
     } catch {}
+    setOnboardingStep('auth');
   };
 
   const logoutAdmin = () => {
@@ -153,19 +156,10 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const dismissIntro = () => {
     setShowIntro(false);
-    try {
-      sessionStorage.setItem('ytc_intro_seen', 'true');
-    } catch {}
-    // If not authenticated, prompt auth/guest choice
-    if (!currentUser) {
-      setOnboardingStep('auth');
-    } else {
-      setOnboardingStep('ready');
-    }
+    setOnboardingStep('auth');
   };
 
   const replayIntro = () => {
-    setShowIntro(true);
     setOnboardingStep('intro');
   };
 
