@@ -123,3 +123,4 @@ dist/assets/index-B9EL5pOA.js   664.80 kB │ gzip: 168.28 kB
 1. Open Chrome DevTools $\to$ **Network** tab $\to$ Select **Offline**.
 2. Refresh page or navigate between `/map`, `/indoor`, and `/directory`.
 3. **Expected Result:** Top amber banner appears (*"Offline Mode Active"*), floor plan SVGs and cached campus directory render instantly from Service Worker and LocalStorage.
+

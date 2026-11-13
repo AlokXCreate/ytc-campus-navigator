@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Building, Floor, Room } from '../../types/campus';
 import { api } from '../../services/api';
+import { getAssetUrl } from '../../utils/assets';
 import {
   DoorOpen,
   Plus,
@@ -427,11 +428,11 @@ export const AdminRooms: React.FC<AdminRoomsProps> = ({
               >
                 {/* SVG Blueprint */}
                 <img
-                  src={activeFloor?.floor_plan_image || '/floor-plans/engineering/ground.svg'}
+                  src={getAssetUrl(activeFloor?.floor_plan_image || '/floor-plans/engineering/ground.svg')}
                   alt="Floor Plan"
                   className="w-full h-full object-contain pointer-events-none"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/floor-plans/engineering/ground.svg';
+                    (e.target as HTMLImageElement).src = getAssetUrl('/floor-plans/engineering/ground.svg');
                   }}
                 />
 

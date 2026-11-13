@@ -494,3 +494,4 @@ export const AdminBuildings: React.FC<AdminBuildingsProps> = ({
     </div>
   );
 };
+

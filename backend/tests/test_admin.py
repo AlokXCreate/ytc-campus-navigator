@@ -226,3 +226,4 @@ def test_data_export(db, admin_user):
     # Export rooms in CSV
     res_csv = export_campus_data("rooms", format="csv", db=db, current_admin=admin_user)
     assert res_csv.media_type == "text/csv"
+

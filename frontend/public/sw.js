@@ -1,20 +1,23 @@
 // YTC Campus Navigator - Service Worker
-// Version: 1.0.0
-const CACHE_NAME = 'ytc-navigator-v1';
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.webmanifest',
-  '/icons/ytc-logo.svg',
-  '/floor-plans/eng-floor-2.svg',
-  '/floor-plans/admin-floor-0.svg'
-];
+// Version: 1.0.1
+const CACHE_NAME = 'ytc-navigator-v2';
 
 // Install Event - Precache App Shell
 self.addEventListener('install', (event) => {
+  const scope = self.registration.scope;
+  const base = scope.endsWith('/') ? scope : `${scope}/`;
+  const STATIC_ASSETS = [
+    base,
+    `${base}index.html`,
+    `${base}manifest.webmanifest`,
+    `${base}icons/ytc-logo.svg`,
+    `${base}floor-plans/eng-floor-2.svg`,
+    `${base}floor-plans/admin-floor-0.svg`
+  ];
+
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[SW] Precaching App Shell and Offline Assets');
+      console.log('[SW] Precaching App Shell and Offline Assets at:', base);
       return cache.addAll(STATIC_ASSETS);
     }).then(() => self.skipWaiting())
   );
@@ -47,7 +50,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Handle API Requests: Network-First with cache fallback
-  if (url.pathname.startsWith('/api/')) {
+  if (url.pathname.includes('/api/')) {
     event.respondWith(
       fetch(request)
         .then((response) => {
@@ -93,9 +96,9 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(async () => {
-          // If HTML navigation fails, return cached index.html
           if (request.mode === 'navigate') {
-            const index = await caches.match('/index.html');
+            const scope = self.registration.scope;
+            const index = await caches.match(`${scope}index.html`) || await caches.match(scope);
             if (index) return index;
           }
           return new Response('Offline - YTC Campus Navigator', {

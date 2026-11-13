@@ -223,3 +223,4 @@ server {
 - **Campus Summary:** `GET /api/campus/summary`
 - **Admin System Stats:** `GET /api/admin/stats` (requires Admin JWT)
 - **Container Health:** Integrated Docker healthcheck verifies `/api/health` every 20s.
+

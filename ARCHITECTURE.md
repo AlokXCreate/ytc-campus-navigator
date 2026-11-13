@@ -200,3 +200,4 @@ stateDiagram-v2
 - **Password Storage:** Salted PBKDF2 with SHA-256 (600,000 iterations).
 - **Session Tokens:** Stateless JSON Web Tokens (JWT) signed with HMAC-SHA256 containing expiration, subject email, and user role.
 - **Enforcement:** FastAPI dependency injection (`get_current_user`, `get_admin_user`, `get_superadmin_user`) guarantees zero unauthorized access to administrative endpoints.
+

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Building, Floor, Room, IndoorNavigationNode } from '../../types/campus';
+import { getAssetUrl } from '../../utils/assets';
 import {
   Layers,
   ZoomIn,
@@ -198,7 +199,7 @@ export const FloorPlanViewer: React.FC<FloorPlanViewerProps> = ({
           >
             {/* SVG Floor Plan Background */}
             <img
-              src={activeFloor.floor_plan_image}
+              src={getAssetUrl(activeFloor.floor_plan_image)}
               alt={`Floor Plan ${activeFloor.floor_label || selectedFloor}`}
               className="w-full h-auto block select-none pointer-events-none"
               draggable={false}

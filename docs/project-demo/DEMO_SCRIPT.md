@@ -112,3 +112,4 @@
 ### Phase 6: Conclusion & Viva Voce Opening (Minutes 10:00 – End)
 **Talking Points:**
 > "In conclusion, YTC Campus Navigator provides Yashoda Technical Campus with a complete, production-ready, accessible, and offline-capable spatial navigation solution. We thank our faculty guides and welcome your questions."
+

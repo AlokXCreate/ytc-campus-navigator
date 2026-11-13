@@ -211,3 +211,4 @@ export const AdminFloorPlans: React.FC<AdminFloorPlansProps> = ({
     </div>
   );
 };
+

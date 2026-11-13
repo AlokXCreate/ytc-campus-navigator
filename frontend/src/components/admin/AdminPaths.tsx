@@ -386,3 +386,4 @@ export const AdminPaths: React.FC<AdminPathsProps> = ({ onRefresh }) => {
     </div>
   );
 };
+

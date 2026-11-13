@@ -53,3 +53,4 @@ Overlay animated 3D directional arrows directly onto a student's real-time smart
 ### Integration:
 - Install ultrasonic sensors or computer vision cameras at YTC parking lots (Two-Wheeler / Four-Wheeler zones).
 - Real-time vacant slot counters displayed directly on the campus map, guiding drivers to open bays.
+

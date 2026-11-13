@@ -214,3 +214,4 @@ Secures administrative access and records non-repudiable audit logs.
 2. **Floor & Building Foreign Key Indexes:** `rooms(building_id, floor_id)` to ensure sub-millisecond retrieval of floor directories.
 3. **Audit Trail Sorting Index:** `activity_logs(timestamp DESC)` for paginated audit log feeds.
 4. **Full-Text Tokenization:** In-memory or indexed search on `room_name`, `room_number`, and `building_name` for instant student queries.
+

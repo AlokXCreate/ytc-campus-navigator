@@ -52,3 +52,4 @@ This document transparently outlines the technical boundaries, physical constrai
 ### 5.2 HTTPS Requirement
 - **Constraint:** Service Workers and browser Geolocation APIs require a secure context (`https://` or `localhost`). Deployment on unencrypted HTTP domains will disable PWA offline caching and GPS positioning.
 - **Mitigation:** Included Nginx production configurations and cloud platform presets (Render/Vercel) automatically enforce TLS/SSL certificates via Let's Encrypt.
+

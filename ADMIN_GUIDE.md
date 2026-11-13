@@ -120,3 +120,4 @@ One of the standout features of YTC Campus Navigator is the **Visual Pin Positio
      - `viewer`: Read-only verification.
 2. **Activity Logs (`/admin` $\to$ Activity Logs):**
    - Review every administrative action, user email, entity affected, and timestamp to maintain data accountability.
+

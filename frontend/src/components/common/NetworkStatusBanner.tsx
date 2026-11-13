@@ -54,3 +54,4 @@ export const NetworkStatusBanner: React.FC = () => {
 
   return null;
 };
+

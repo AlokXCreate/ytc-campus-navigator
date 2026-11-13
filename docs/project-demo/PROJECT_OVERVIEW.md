@@ -43,3 +43,4 @@ Navigating expansive collegiate campuses poses notable challenges for incoming f
 - **Security:** Salted PBKDF2 Password Hashing, Stateless HMAC-SHA256 JSON Web Tokens (JWT), Role-Based Access Control (RBAC).
 - **Offline / PWA:** Service Worker CacheStorage API, Web App Manifest, LocalStorage Stale-While-Revalidate fallback.
 - **Deployment & QA:** Multi-stage Docker, Nginx, Docker Compose, GitHub Actions CI, Pytest automated testing suite (28/28 tests passing).
+

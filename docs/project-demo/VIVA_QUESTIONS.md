@@ -119,3 +119,4 @@ Our innovation lies in **seamless outdoor-to-indoor multimodal navigation**:
 2. Resolution-independent normalized coordinate mapping on SVG blueprints.
 3. Offline-first PWA resilience that continues to work inside reinforced concrete buildings where cellular data drops.
 4. A no-code visual admin panel that allows non-technical campus facility staff to click-and-pin room locations interactively.
+

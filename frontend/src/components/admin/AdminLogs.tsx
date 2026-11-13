@@ -154,3 +154,4 @@ export const AdminLogs: React.FC = () => {
     </div>
   );
 };
+

@@ -100,3 +100,4 @@ When you navigate from an outdoor location (such as the Main Entrance Gate) to a
 When walking through areas with weak cellular reception or offline campus spots:
 - The top banner will indicate: **"Offline Mode Active"**.
 - All pre-cached maps, indoor blueprints, search directories, and pathfinding continue to work uninterrupted without requiring internet connectivity!
+

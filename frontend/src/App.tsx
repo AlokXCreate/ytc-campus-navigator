@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CampusProvider, useCampus } from './context/CampusContext';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
@@ -65,11 +65,11 @@ const AppContent: React.FC = () => {
 
 export function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <CampusProvider>
         <AppContent />
       </CampusProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

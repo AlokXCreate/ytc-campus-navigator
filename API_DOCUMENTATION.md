@@ -255,3 +255,4 @@ All routes require `Authorization: Bearer <token>` with `superadmin` or `campus_
 | `GET` | `/api/admin/export/{entity}` | Export dataset as JSON, CSV, or GeoJSON |
 | `POST` | `/api/geojson/validate` | Validate GeoJSON geometry format |
 | `POST` | `/api/geojson/import` | Bulk import campus boundaries and POIs |
+

@@ -18,7 +18,7 @@
 [![Pytest](https://img.shields.io/badge/Tests-28%20Passed-brightgreen.svg?logo=pytest&logoColor=white)](https://pytest.org)
 [![PWA](https://img.shields.io/badge/PWA-Offline%20First-5A0FC8.svg?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 
-[Live Demo](#) • [Project Overview](docs/project-demo/PROJECT_OVERVIEW.md) • [Architecture](ARCHITECTURE.md) • [Database Schema](DATABASE_SCHEMA.md) • [API Docs](API_DOCUMENTATION.md) • [Viva Questions](docs/project-demo/VIVA_QUESTIONS.md)
+[🌐 Live Web Application](https://alokxcreate.github.io/ytc-campus-navigator/) • [Project Overview](docs/project-demo/PROJECT_OVERVIEW.md) • [Architecture](ARCHITECTURE.md) • [Database Schema](DATABASE_SCHEMA.md) • [API Docs](API_DOCUMENTATION.md) • [Viva Questions](docs/project-demo/VIVA_QUESTIONS.md)
 
 </div>
 

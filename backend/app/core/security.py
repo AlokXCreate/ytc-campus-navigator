@@ -132,3 +132,4 @@ def require_roles(allowed_roles: List[str]):
 # Preconfigured role dependencies
 get_admin_user = require_roles(["superadmin", "campus_admin", "admin"])
 get_superadmin_user = require_roles(["superadmin"])
+
