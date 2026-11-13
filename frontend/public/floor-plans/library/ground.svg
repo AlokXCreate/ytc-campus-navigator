@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="1000" height="600" fill="#f8fafc"/>
+  <rect width="1000" height="600" fill="url(#grid)"/>
+
+  <!-- Outer Walls -->
+  <rect x="40" y="40" width="920" height="520" rx="12" fill="#ffffff" stroke="#0284c7" stroke-width="4"/>
+
+  <!-- Entrance Turnstile -->
+  <path d="M 440 560 L 560 560" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
+  <rect x="380" y="450" width="240" height="110" fill="#f0f9ff" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="500" y="515" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#0369a1" text-anchor="middle">LIBRARY SECURITY TURNSTILE</text>
+  <text x="500" y="535" font-family="Inter, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">RFID Check-in</text>
+
+  <!-- Central Promenade -->
+  <rect x="50" y="250" width="900" height="100" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="500" y="308" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0284c7" text-anchor="middle" letter-spacing="4">CENTRAL CATALOGUE &amp; CIRCULATION AISLE</text>
+
+  <!-- Stairs -->
+  <g id="stairs-lib">
+    <rect x="50" y="250" width="70" height="100" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="85" y="305" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">STAIRS</text>
+  </g>
+
+  <!-- ROOM LIB-001: Main Reading Hall (Top Left) -->
+  <g id="rm-lib-001">
+    <rect x="130" y="55" width="350" height="185" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="130" y="55" width="350" height="28" rx="6" fill="#2563eb"/>
+    <text x="305" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">LIB-001</text>
+    <text x="305" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Silent Reading Hall</text>
+    <text x="305" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Capacity: 150 Students (Quiet Zone)</text>
+  </g>
+
+  <!-- ROOM LIB-002: Digital Library & E-Journals (Top Right) -->
+  <g id="rm-lib-002">
+    <rect x="520" y="55" width="350" height="185" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <rect x="520" y="55" width="350" height="28" rx="6" fill="#15803d"/>
+    <text x="695" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">LIB-002</text>
+    <text x="695" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">Digital E-Resource Center</text>
+    <text x="695" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">IEEE, Springer &amp; ScienceDirect Terminals</text>
+  </g>
+
+  <!-- Bottom Left: Stack Section & Lending Desk (LIB-003) -->
+  <g id="rm-lib-003">
+    <rect x="130" y="360" width="240" height="180" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+    <rect x="130" y="360" width="240" height="28" rx="6" fill="#a16207"/>
+    <text x="250" y="379" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">LIB-003</text>
+    <text x="250" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#713f12" text-anchor="middle">Circulation &amp; Lending Desk</text>
+    <text x="250" y="450" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Book Issue &amp; Return Counter</text>
+  </g>
+
+  <!-- Bottom Right: Periodicals & Reference (LIB-004) -->
+  <g id="rm-lib-004">
+    <rect x="630" y="360" width="240" height="180" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+    <rect x="630" y="360" width="240" height="28" rx="6" fill="#7e22ce"/>
+    <text x="750" y="379" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">LIB-004</text>
+    <text x="750" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#581c87" text-anchor="middle">Periodicals &amp; Newspapers</text>
+    <text x="750" y="450" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">National &amp; International Journals</text>
+  </g>
+</svg>

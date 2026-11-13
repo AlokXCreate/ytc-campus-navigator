@@ -136,7 +136,7 @@ export const DashboardPage: React.FC = () => {
               onClick={() => {
                 const b = buildings.find((x) => x.id === sc.buildingId);
                 if (b) setSelectedBuilding(b);
-                navigate('/indoor');
+                navigate(`/indoor?building=${sc.buildingId}&floor=${sc.floor}`);
               }}
               className="p-3.5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-subtle transition-all flex items-center gap-3 text-left group"
             >

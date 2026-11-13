@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="1000" height="600" fill="#f8fafc"/>
+  <rect width="1000" height="600" fill="url(#grid)"/>
+
+  <!-- Outer Walls -->
+  <rect x="40" y="40" width="920" height="520" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+
+  <!-- Grand Entrance Foyer -->
+  <path d="M 440 560 L 560 560" stroke="#0f172a" stroke-width="8" stroke-linecap="round"/>
+  <rect x="380" y="450" width="240" height="110" fill="#f1f5f9" stroke="#475569" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="500" y="515" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">ADMINISTRATIVE LOBBY</text>
+  <text x="500" y="535" font-family="Inter, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Main Reception &amp; Helpdesk</text>
+
+  <!-- Central Gallery -->
+  <rect x="50" y="250" width="900" height="100" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="500" y="308" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="4">ADMINISTRATIVE CENTRAL CONCOURSE</text>
+
+  <!-- Stairs & Elevator -->
+  <g id="stairs-admin">
+    <rect x="50" y="250" width="70" height="100" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="85" y="305" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">STAIRS</text>
+  </g>
+
+  <!-- ROOM ADM-001: Principal & Director Office (Top Left) -->
+  <g id="rm-adm-001">
+    <rect x="130" y="55" width="220" height="185" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <rect x="130" y="55" width="220" height="28" rx="6" fill="#1e40af"/>
+    <text x="240" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ADM-001</text>
+    <text x="240" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Director &amp; Principal Office</text>
+    <text x="240" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Executive Directorate</text>
+  </g>
+
+  <!-- ROOM ADM-002: Student Services & Scholarship Cell (Top Center) -->
+  <g id="rm-adm-002">
+    <rect x="370" y="55" width="240" height="185" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <rect x="370" y="55" width="240" height="28" rx="6" fill="#15803d"/>
+    <text x="490" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ADM-002</text>
+    <text x="490" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">Student Section &amp; Accounts</text>
+    <text x="490" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Fee Collection &amp; Scholarships</text>
+  </g>
+
+  <!-- ROOM ADM-003: Central Conference Hall (Top Right) -->
+  <g id="rm-adm-003">
+    <rect x="630" y="55" width="240" height="185" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+    <rect x="630" y="55" width="240" height="28" rx="6" fill="#7e22ce"/>
+    <text x="750" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ADM-003</text>
+    <text x="750" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#581c87" text-anchor="middle">Boardroom &amp; Conference</text>
+    <text x="750" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Academic Council Suite</text>
+  </g>
+
+  <!-- Bottom Left: Admission Cell (ADM-004) -->
+  <g id="rm-adm-004">
+    <rect x="130" y="360" width="240" height="180" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+    <rect x="130" y="360" width="240" height="28" rx="6" fill="#c2410c"/>
+    <text x="250" y="379" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ADM-004</text>
+    <text x="250" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#7c2d12" text-anchor="middle">Central Admissions Cell</text>
+    <text x="250" y="450" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Counseling &amp; Verification</text>
+  </g>
+
+  <!-- Bottom Right: Examination Control Office (ADM-005) -->
+  <g id="rm-adm-005">
+    <rect x="630" y="360" width="240" height="180" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+    <rect x="630" y="360" width="240" height="28" rx="6" fill="#334155"/>
+    <text x="750" y="379" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ADM-005</text>
+    <text x="750" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Examination Control Office</text>
+    <text x="750" y="450" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Confidential Records</text>
+  </g>
+</svg>

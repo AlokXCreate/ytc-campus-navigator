@@ -52,11 +52,11 @@ export const FindLocationPage: React.FC = () => {
 
   const handleNavigateIndoor = (item: SearchResult) => {
     if (item.category === 'room') {
-      if (item.building_id) {
-        const b = buildings.find((x) => x.id === item.building_id);
-        if (b) setSelectedBuilding(b);
-      }
-      navigate('/indoor');
+      const bldgId = item.building_id || 'bldg-b';
+      const floorNum = item.floor !== undefined ? item.floor : 0;
+      navigate(`/indoor?building=${bldgId}&floor=${floorNum}&room=${item.id}`);
+    } else if (item.category === 'building') {
+      navigate(`/indoor?building=${item.id}&floor=0`);
     } else {
       navigate('/routes');
     }

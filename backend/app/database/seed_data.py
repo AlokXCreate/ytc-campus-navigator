@@ -5,12 +5,16 @@ from sqlalchemy.orm import Session
 from app.database.session import Base, engine, SessionLocal
 from app.models.campus import (
     Building,
+    Floor,
     Room,
     Facility,
     CampusPath,
     FloorPlan,
     PointOfInterest,
     CampusBoundary,
+    IndoorNavigationNode,
+    IndoorNavigationEdge,
+    FloorTransition,
     User
 )
 
@@ -28,7 +32,22 @@ def get_sample_data():
     raise FileNotFoundError("sample-campus-data.json could not be located.")
 
 def seed_database(db: Session = None, force_reseed: bool = False):
-    """Initializes tables and seeds initial campus data."""
+    """Initializes tables and seeds initial campus and indoor navigation data."""
+    # Auto-migrate SQLite columns if table already existed from earlier prompts
+    try:
+        from sqlalchemy import text
+        with engine.connect() as conn:
+            cursor = conn.connection.cursor()
+            cursor.execute("PRAGMA table_info(rooms)")
+            cols = [c[1] for c in cursor.fetchall()]
+            if "floor_id" not in cols:
+                conn.execute(text("ALTER TABLE rooms ADD COLUMN floor_id VARCHAR(50)"))
+            if "is_accessible" not in cols:
+                conn.execute(text("ALTER TABLE rooms ADD COLUMN is_accessible BOOLEAN DEFAULT 1"))
+            conn.commit()
+    except Exception as me:
+        print(f"Migration note: {me}")
+
     Base.metadata.create_all(bind=engine)
     
     close_db = False
@@ -39,7 +58,7 @@ def seed_database(db: Session = None, force_reseed: bool = False):
     try:
         data = get_sample_data()
 
-        # Seed Buildings
+        # 1. Seed Buildings
         if db.query(Building).count() == 0 or force_reseed:
             for b in data.get("buildings", []):
                 existing = db.query(Building).filter(Building.id == b["id"]).first()
@@ -63,7 +82,29 @@ def seed_database(db: Session = None, force_reseed: bool = False):
             db.commit()
             print(f"[OK] Seeded {len(data.get('buildings', []))} buildings.")
 
-        # Seed Points of Interest (POIs)
+        # 2. Seed Floors
+        for fl in data.get("floors", []):
+            existing = db.query(Floor).filter(Floor.id == fl["id"]).first()
+            if not existing:
+                floor_obj = Floor(
+                    id=fl["id"],
+                    building_id=fl["building_id"],
+                    floor_number=fl["floor_number"],
+                    floor_label=fl.get("floor_label"),
+                    floor_plan_image=fl.get("floor_plan_image"),
+                    image_width=fl.get("image_width", 1000),
+                    image_height=fl.get("image_height", 600),
+                    is_approximate=fl.get("is_approximate", True),
+                    is_active=fl.get("is_active", True)
+                )
+                db.add(floor_obj)
+            else:
+                existing.floor_plan_image = fl.get("floor_plan_image")
+                existing.floor_label = fl.get("floor_label")
+        db.commit()
+        print(f"[OK] Seeded {len(data.get('floors', []))} building floors.")
+
+        # 3. Seed Points of Interest (POIs)
         if db.query(PointOfInterest).count() == 0 or force_reseed:
             for poi in data.get("points_of_interest", []):
                 existing = db.query(PointOfInterest).filter(PointOfInterest.id == poi["id"]).first()
@@ -87,7 +128,7 @@ def seed_database(db: Session = None, force_reseed: bool = False):
             db.commit()
             print(f"[OK] Seeded {len(data.get('points_of_interest', []))} Points of Interest.")
 
-        # Seed Campus Boundary
+        # 4. Seed Campus Boundary
         if db.query(CampusBoundary).count() == 0 or force_reseed:
             bound_data = data.get("campus_boundary")
             if bound_data:
@@ -103,28 +144,34 @@ def seed_database(db: Session = None, force_reseed: bool = False):
                     db.commit()
                     print("[OK] Seeded YTC campus boundary polygon.")
 
-        # Seed Rooms
-        if db.query(Room).count() == 0 or force_reseed:
-            for r in data.get("rooms", []):
-                existing = db.query(Room).filter(Room.id == r["id"]).first()
-                if not existing:
-                    room = Room(
-                        id=r["id"],
-                        room_name=r["room_name"],
-                        room_number=r["room_number"],
-                        building_id=r["building_id"],
-                        floor=r["floor"],
-                        room_type=r.get("room_type", "classroom"),
-                        description=r.get("description"),
-                        relative_x=r.get("relative_x", 0.5),
-                        relative_y=r.get("relative_y", 0.5),
-                        is_active=r.get("is_active", True)
-                    )
-                    db.add(room)
-            db.commit()
-            print(f"[OK] Seeded {len(data.get('rooms', []))} rooms.")
+        # 5. Seed Rooms
+        for r in data.get("rooms", []):
+            existing = db.query(Room).filter(Room.id == r["id"]).first()
+            if not existing:
+                room = Room(
+                    id=r["id"],
+                    room_name=r["room_name"],
+                    room_number=r["room_number"],
+                    building_id=r["building_id"],
+                    floor_id=r.get("floor_id"),
+                    floor=r["floor"],
+                    room_type=r.get("room_type", "classroom"),
+                    description=r.get("description"),
+                    relative_x=r.get("relative_x", 0.5),
+                    relative_y=r.get("relative_y", 0.5),
+                    is_accessible=r.get("is_accessible", True),
+                    is_active=r.get("is_active", True)
+                )
+                db.add(room)
+            else:
+                existing.floor_id = r.get("floor_id")
+                existing.relative_x = r.get("relative_x", 0.5)
+                existing.relative_y = r.get("relative_y", 0.5)
+                existing.is_accessible = r.get("is_accessible", True)
+        db.commit()
+        print(f"[OK] Seeded and updated {len(data.get('rooms', []))} rooms.")
 
-        # Seed Facilities
+        # 6. Seed Facilities
         if db.query(Facility).count() == 0 or force_reseed:
             for fac in data.get("facilities", []):
                 existing = db.query(Facility).filter(Facility.id == fac["id"]).first()
@@ -144,7 +191,7 @@ def seed_database(db: Session = None, force_reseed: bool = False):
             db.commit()
             print(f"[OK] Seeded {len(data.get('facilities', []))} facilities.")
 
-        # Seed Campus Paths (update or add all 15 paths)
+        # 7. Seed Campus Paths
         for p in data.get("paths", []):
             existing = db.query(CampusPath).filter(CampusPath.id == p["id"]).first()
             if not existing:
@@ -161,7 +208,7 @@ def seed_database(db: Session = None, force_reseed: bool = False):
         db.commit()
         print(f"[OK] Seeded and synchronized {len(data.get('paths', []))} campus walkway paths.")
 
-        # Seed Floor Plans
+        # 8. Seed Floor Plans (Legacy Compatibility)
         if db.query(FloorPlan).count() == 0 or force_reseed:
             for fp in data.get("floor_plans", []):
                 existing = db.query(FloorPlan).filter(FloorPlan.id == fp["id"]).first()
@@ -180,7 +227,63 @@ def seed_database(db: Session = None, force_reseed: bool = False):
             db.commit()
             print(f"[OK] Seeded {len(data.get('floor_plans', []))} floor plans.")
 
-        # Seed Default Users
+        # 9. Seed Indoor Navigation Nodes
+        for nd in data.get("indoor_nodes", []):
+            existing = db.query(IndoorNavigationNode).filter(IndoorNavigationNode.id == nd["id"]).first()
+            if not existing:
+                node_obj = IndoorNavigationNode(
+                    id=nd["id"],
+                    building_id=nd["building_id"],
+                    floor_id=nd["floor_id"],
+                    floor_number=nd.get("floor_number", 0),
+                    node_type=nd["node_type"],
+                    node_name=nd["node_name"],
+                    relative_x=nd["relative_x"],
+                    relative_y=nd["relative_y"],
+                    room_id=nd.get("room_id")
+                )
+                db.add(node_obj)
+        db.commit()
+        print(f"[OK] Seeded {len(data.get('indoor_nodes', []))} indoor navigation nodes.")
+
+        # 10. Seed Indoor Navigation Edges
+        for ed in data.get("indoor_edges", []):
+            existing = db.query(IndoorNavigationEdge).filter(IndoorNavigationEdge.id == ed["id"]).first()
+            if not existing:
+                edge_obj = IndoorNavigationEdge(
+                    id=ed["id"],
+                    building_id=ed["building_id"],
+                    floor_id=ed.get("floor_id"),
+                    source_node_id=ed["source_node_id"],
+                    destination_node_id=ed["destination_node_id"],
+                    distance=ed.get("distance", 10.0),
+                    movement_type=ed.get("movement_type", "corridor"),
+                    accessible=ed.get("accessible", True),
+                    is_active=True
+                )
+                db.add(edge_obj)
+        db.commit()
+        print(f"[OK] Seeded {len(data.get('indoor_edges', []))} indoor navigation edges.")
+
+        # 11. Seed Floor Transitions
+        for tr in data.get("floor_transitions", []):
+            existing = db.query(FloorTransition).filter(FloorTransition.id == tr["id"]).first()
+            if not existing:
+                trans_obj = FloorTransition(
+                    id=tr["id"],
+                    building_id=tr["building_id"],
+                    source_floor_id=tr["source_floor_id"],
+                    destination_floor_id=tr["destination_floor_id"],
+                    transition_type=tr["transition_type"],
+                    source_node_id=tr["source_node_id"],
+                    destination_node_id=tr["destination_node_id"],
+                    is_accessible=tr.get("is_accessible", True)
+                )
+                db.add(trans_obj)
+        db.commit()
+        print(f"[OK] Seeded {len(data.get('floor_transitions', []))} vertical floor transitions.")
+
+        # 12. Seed Default Users
         if db.query(User).count() == 0:
             admin_user = User(
                 email="admin@ytc.edu.in",

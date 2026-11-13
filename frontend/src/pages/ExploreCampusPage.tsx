@@ -608,6 +608,37 @@ export const ExploreCampusPage: React.FC = () => {
                         </button>
                       )}
                     </div>
+
+                    {/* Outdoor to Indoor Seamless Handoff */}
+                    <div className="pt-2 border-t border-slate-700/80">
+                      <button
+                        onClick={() => {
+                          let targetBldg = 'bldg-b';
+                          let targetFloor = 2;
+                          if (destId.includes('admin') || destId.includes('bldg_a')) {
+                            targetBldg = 'bldg-a';
+                            targetFloor = 0;
+                          } else if (destId.includes('lib')) {
+                            targetBldg = 'bldg-d';
+                            targetFloor = 0;
+                          } else if (destId.includes('pharm')) {
+                            targetBldg = 'bldg-c';
+                            targetFloor = 0;
+                          }
+                          navigate(`/indoor?building=${targetBldg}&floor=${targetFloor}&fromOutdoor=true`);
+                        }}
+                        className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white text-xs font-bold flex items-center justify-between transition-all shadow-sm"
+                      >
+                        <div className="flex items-center gap-2 text-left">
+                          <Layers className="w-4 h-4 text-amber-300 shrink-0" />
+                          <div>
+                            <div className="text-[10px] text-blue-200 uppercase font-extrabold tracking-wider">Arrival Handoff</div>
+                            <div className="text-xs font-black">Continue Inside Building</div>
+                          </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-white" />
+                      </button>
+                    </div>
                   </div>
 
                   {/* Step-by-Step Directions */}

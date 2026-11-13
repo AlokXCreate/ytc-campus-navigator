@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="corridorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="600" fill="#f8fafc"/>
+  <rect width="1000" height="600" fill="url(#grid)"/>
+
+  <!-- Outer Walls -->
+  <rect x="40" y="40" width="920" height="520" rx="12" fill="#ffffff" stroke="#1e293b" stroke-width="4"/>
+
+  <!-- Central Corridor -->
+  <rect x="50" y="250" width="900" height="100" fill="url(#corridorGrad)" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="500" y="308" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="4">SECOND FLOOR • AI &amp; DS DEPARTMENT CORRIDOR</text>
+
+  <!-- West Stairs -->
+  <g id="stairs-west">
+    <rect x="50" y="250" width="70" height="100" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="85" y="295" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">STAIRS A</text>
+    <text x="85" y="315" font-family="Inter, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle">West Wing</text>
+  </g>
+
+  <!-- East Stairs -->
+  <g id="stairs-east">
+    <rect x="880" y="250" width="70" height="100" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="915" y="295" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">STAIRS B</text>
+    <text x="915" y="315" font-family="Inter, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle">East Wing</text>
+  </g>
+
+  <!-- Central Elevator / Lift -->
+  <g id="elevator-central">
+    <rect x="620" y="250" width="70" height="100" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="655" y="295" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">LIFT</text>
+    <text x="655" y="315" font-family="Inter, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">Elevator 1</text>
+  </g>
+
+  <!-- ROOM ENG-201: AI & DS Department Office (Top Left) -->
+  <g id="rm-201">
+    <rect x="130" y="55" width="220" height="185" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="130" y="55" width="220" height="28" rx="6" fill="#2563eb"/>
+    <text x="240" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ENG-201</text>
+    <text x="240" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a" text-anchor="middle">AI &amp; DS Dept. Office</text>
+    <text x="240" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">HOD &amp; Faculty Cabin</text>
+  </g>
+
+  <!-- ROOM ENG-204: AI & Deep Learning Lab (Top Center) -->
+  <g id="rm-204">
+    <rect x="370" y="55" width="230" height="185" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <rect x="370" y="55" width="230" height="28" rx="6" fill="#15803d"/>
+    <text x="485" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ENG-204</text>
+    <text x="485" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#14532d" text-anchor="middle">AI &amp; Deep Learning Lab</text>
+    <text x="485" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">High Performance GPU Cluster</text>
+  </g>
+
+  <!-- ROOM ENG-205: IoT & Robotics Laboratory (Top Right) -->
+  <g id="rm-205">
+    <rect x="620" y="55" width="250" height="185" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+    <rect x="620" y="55" width="250" height="28" rx="6" fill="#7e22ce"/>
+    <text x="745" y="74" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ENG-205</text>
+    <text x="745" y="125" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#581c87" text-anchor="middle">IoT &amp; Robotics Lab</text>
+    <text x="745" y="145" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Sensors &amp; Embedded Systems</text>
+  </g>
+
+  <!-- Bottom Left: Smart Classroom 201 (ENG-202) -->
+  <g id="rm-202">
+    <rect x="130" y="360" width="250" height="180" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <rect x="130" y="360" width="250" height="28" rx="6" fill="#475569"/>
+    <text x="255" y="379" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ENG-202</text>
+    <text x="255" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#1e293b" text-anchor="middle">Smart Classroom 201 (BE)</text>
+    <text x="255" y="450" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Interactive Smart Podium</text>
+  </g>
+
+  <!-- Bottom Right: Cloud Computing & Big Data Lab (ENG-208) -->
+  <g id="rm-208">
+    <rect x="620" y="360" width="250" height="180" rx="6" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
+    <rect x="620" y="360" width="250" height="28" rx="6" fill="#0e7490"/>
+    <text x="745" y="379" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ENG-208</text>
+    <text x="745" y="430" font-family="Inter, sans-serif" font-size="13" font-weight="bold" fill="#164e63" text-anchor="middle">Cloud &amp; Big Data Lab</text>
+    <text x="745" y="450" font-family="Inter, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Distributed Systems Testbed</text>
+  </g>
+</svg>

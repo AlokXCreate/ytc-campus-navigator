@@ -31,16 +31,43 @@ class RoomBase(BaseModel):
     room_name: str
     room_number: str
     building_id: str
+    floor_id: Optional[str] = None
     floor: int
     room_type: str
     description: Optional[str] = None
     relative_x: float = 0.5
     relative_y: float = 0.5
+    is_accessible: bool = True
     is_active: bool = True
 
 class RoomResponse(RoomBase):
     building_name: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
+
+class RoomCreate(BaseModel):
+    id: Optional[str] = None
+    room_name: str
+    room_number: str
+    building_id: str
+    floor_id: Optional[str] = None
+    floor: int
+    room_type: str = "classroom"
+    description: Optional[str] = None
+    relative_x: float = 0.5
+    relative_y: float = 0.5
+    is_accessible: bool = True
+
+class RoomUpdate(BaseModel):
+    room_name: Optional[str] = None
+    room_number: Optional[str] = None
+    floor: Optional[int] = None
+    floor_id: Optional[str] = None
+    room_type: Optional[str] = None
+    description: Optional[str] = None
+    relative_x: Optional[float] = None
+    relative_y: Optional[float] = None
+    is_accessible: Optional[bool] = None
+    is_active: Optional[bool] = None
 
 # ============================
 # FACILITY SCHEMAS
@@ -144,7 +171,6 @@ class RouteResponse(BaseModel):
     is_snapped_from_gps: bool = False
     message: Optional[str] = None
 
-# Backward compatibility alias
 RouteRequest = RouteCalculateRequest
 
 # ============================
@@ -162,6 +188,114 @@ class FloorPlanResponse(BaseModel):
     last_updated: Optional[datetime] = None
     rooms: Optional[List[RoomResponse]] = []
     model_config = ConfigDict(from_attributes=True)
+
+# ============================
+# INDOOR NAVIGATION SCHEMAS
+# ============================
+class FloorBase(BaseModel):
+    id: str
+    building_id: str
+    floor_number: int
+    floor_label: Optional[str] = None
+    floor_plan_image: str
+    image_width: int = 1000
+    image_height: int = 600
+    is_approximate: bool = True
+    is_active: bool = True
+
+class FloorResponse(FloorBase):
+    last_updated: Optional[datetime] = None
+    rooms: Optional[List[RoomResponse]] = []
+    model_config = ConfigDict(from_attributes=True)
+
+class IndoorNodeBase(BaseModel):
+    id: str
+    building_id: str
+    floor_id: str
+    floor_number: int = 0
+    node_type: str  # "room", "corridor", "intersection", "staircase", "lift", "entrance"
+    node_name: str
+    relative_x: float
+    relative_y: float
+    room_id: Optional[str] = None
+
+class IndoorNodeResponse(IndoorNodeBase):
+    model_config = ConfigDict(from_attributes=True)
+
+class IndoorEdgeBase(BaseModel):
+    id: str
+    building_id: str
+    floor_id: Optional[str] = None
+    source_node_id: str
+    destination_node_id: str
+    distance: float = 10.0
+    movement_type: str = "corridor"  # "corridor", "room_access", "staircase", "lift", "entrance_connection"
+    accessible: bool = True
+    is_active: bool = True
+
+class IndoorEdgeResponse(IndoorEdgeBase):
+    model_config = ConfigDict(from_attributes=True)
+
+class FloorTransitionResponse(BaseModel):
+    id: str
+    building_id: str
+    source_floor_id: str
+    destination_floor_id: str
+    transition_type: str
+    source_node_id: str
+    destination_node_id: str
+    is_accessible: bool
+    model_config = ConfigDict(from_attributes=True)
+
+class IndoorRouteStep(BaseModel):
+    instruction: str
+    distance_meters: float
+    node_id: str
+    relative_x: float
+    relative_y: float
+    floor_number: int
+    floor_label: Optional[str] = None
+    step_type: str = "walk"  # "walk", "staircase", "lift", "door", "arrive"
+
+class IndoorFloorSegment(BaseModel):
+    floor_number: int
+    floor_label: str
+    floor_plan_image: str
+    path_coordinates: List[List[float]]
+    steps: List[IndoorRouteStep]
+    subtotal_distance_meters: float
+
+class IndoorRouteCalculateRequest(BaseModel):
+    building_id: str
+    source_node_id: Optional[str] = None
+    destination_node_id: Optional[str] = None
+    source_room_id: Optional[str] = None
+    destination_room_id: Optional[str] = None
+    preferred_transition: Optional[str] = "stairs"  # "stairs", "lift", "accessible"
+    algorithm: Optional[str] = "dijkstra"  # "dijkstra" or "astar"
+
+class IndoorRouteResponse(BaseModel):
+    found: bool
+    building_id: str
+    building_name: str
+    source_name: str
+    destination_name: str
+    total_distance_meters: float
+    estimated_walk_time_minutes: float
+    is_multi_floor: bool
+    floors_traversed: List[int]
+    floor_segments: List[IndoorFloorSegment]
+    all_path_nodes: List[str]
+    instructions: List[str]
+    accessibility_used: str
+    message: Optional[str] = None
+
+class FloorPlanUploadResponse(BaseModel):
+    success: bool
+    building_id: str
+    floor_number: int
+    image_url: str
+    message: str
 
 # ============================
 # SEARCH SCHEMAS

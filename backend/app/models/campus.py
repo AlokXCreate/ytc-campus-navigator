@@ -33,6 +33,26 @@ class Building(Base):
     rooms = relationship("Room", back_populates="building", cascade="all, delete-orphan")
     facilities = relationship("Facility", back_populates="building")
     floor_plans = relationship("FloorPlan", back_populates="building", cascade="all, delete-orphan")
+    floors = relationship("Floor", back_populates="building", cascade="all, delete-orphan")
+    indoor_nodes = relationship("IndoorNavigationNode", back_populates="building", cascade="all, delete-orphan")
+    indoor_edges = relationship("IndoorNavigationEdge", back_populates="building", cascade="all, delete-orphan")
+
+class Floor(Base):
+    __tablename__ = "floors"
+
+    id = Column(String(50), primary_key=True, index=True)
+    building_id = Column(String(50), ForeignKey("buildings.id"), nullable=False, index=True)
+    floor_number = Column(Integer, nullable=False, index=True)
+    floor_label = Column(String(100), nullable=True)
+    floor_plan_image = Column(String(255), nullable=False)
+    image_width = Column(Integer, default=1000)
+    image_height = Column(Integer, default=600)
+    is_approximate = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=True)
+    last_updated = Column(DateTime, default=datetime.datetime.utcnow)
+
+    building = relationship("Building", back_populates="floors")
+    rooms = relationship("Room", back_populates="floor_ref")
 
 class Room(Base):
     __tablename__ = "rooms"
@@ -41,14 +61,17 @@ class Room(Base):
     room_name = Column(String(150), nullable=False, index=True)
     room_number = Column(String(50), nullable=False, index=True)
     building_id = Column(String(50), ForeignKey("buildings.id"), nullable=False)
+    floor_id = Column(String(50), ForeignKey("floors.id"), nullable=True, index=True)
     floor = Column(Integer, nullable=False, default=0)
     room_type = Column(String(50), nullable=False, default="classroom")
     description = Column(Text, nullable=True)
     relative_x = Column(Float, default=0.5)
     relative_y = Column(Float, default=0.5)
+    is_accessible = Column(Boolean, default=True)
     is_active = Column(Boolean, default=True)
 
     building = relationship("Building", back_populates="rooms")
+    floor_ref = relationship("Floor", back_populates="rooms")
 
 class Facility(Base):
     __tablename__ = "facilities"
@@ -115,6 +138,48 @@ class CampusBoundary(Base):
     name = Column(String(150), nullable=False)
     geojson_data = Column(JSON, nullable=False)
     properties = Column(JSON, nullable=True)
+
+class IndoorNavigationNode(Base):
+    __tablename__ = "indoor_navigation_nodes"
+
+    id = Column(String(50), primary_key=True, index=True)
+    building_id = Column(String(50), ForeignKey("buildings.id"), nullable=False, index=True)
+    floor_id = Column(String(50), nullable=False, index=True)
+    floor_number = Column(Integer, default=0, index=True)
+    node_type = Column(String(50), nullable=False, index=True)  # "room", "corridor", "intersection", "staircase", "lift", "entrance"
+    node_name = Column(String(150), nullable=False)
+    relative_x = Column(Float, nullable=False, default=0.5)
+    relative_y = Column(Float, nullable=False, default=0.5)
+    room_id = Column(String(50), nullable=True, index=True)
+
+    building = relationship("Building", back_populates="indoor_nodes")
+
+class IndoorNavigationEdge(Base):
+    __tablename__ = "indoor_navigation_edges"
+
+    id = Column(String(50), primary_key=True, index=True)
+    building_id = Column(String(50), ForeignKey("buildings.id"), nullable=False, index=True)
+    floor_id = Column(String(50), nullable=True, index=True)
+    source_node_id = Column(String(50), nullable=False, index=True)
+    destination_node_id = Column(String(50), nullable=False, index=True)
+    distance = Column(Float, nullable=False, default=10.0)
+    movement_type = Column(String(50), default="corridor")  # "corridor", "room_access", "staircase", "lift", "entrance_connection"
+    accessible = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=True)
+
+    building = relationship("Building", back_populates="indoor_edges")
+
+class FloorTransition(Base):
+    __tablename__ = "floor_transitions"
+
+    id = Column(String(50), primary_key=True, index=True)
+    building_id = Column(String(50), ForeignKey("buildings.id"), nullable=False, index=True)
+    source_floor_id = Column(String(50), nullable=False, index=True)
+    destination_floor_id = Column(String(50), nullable=False, index=True)
+    transition_type = Column(String(50), nullable=False)  # "staircase", "lift", "ramp"
+    source_node_id = Column(String(50), nullable=False, index=True)
+    destination_node_id = Column(String(50), nullable=False, index=True)
+    is_accessible = Column(Boolean, default=True)
 
 class SearchHistory(Base):
     __tablename__ = "search_history"

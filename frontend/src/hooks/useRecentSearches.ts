@@ -48,5 +48,5 @@ export const useRecentSearches = () => {
     } catch {}
   };
 
-  return { recentSearches, addSearch, removeSearch, clearAllSearches };
+  return { recentSearches, addSearch, addRecentSearch: addSearch, removeSearch, clearAllSearches };
 };

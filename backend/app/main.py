@@ -16,6 +16,7 @@ from app.api.v1 import (
     paths,
     routes,
     geojson,
+    indoor,
     auth
 )
 
@@ -32,7 +33,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="Backend REST API and Pathfinding Engine for Yashoda Technical Campus Navigator (Satara, Maharashtra).",
-    version="2.0.0",
+    version="3.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan
@@ -72,6 +73,7 @@ app.include_router(paths.router, prefix=settings.API_V1_STR)
 app.include_router(routes.router, prefix=settings.API_V1_STR)
 app.include_router(routes.nav_router, prefix=settings.API_V1_STR)
 app.include_router(geojson.router, prefix=settings.API_V1_STR)
+app.include_router(indoor.router, prefix=settings.API_V1_STR)
 app.include_router(auth.router, prefix=settings.API_V1_STR)
 
 @app.get("/")

@@ -79,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
     } else if (item.category === 'room') {
       navigate('/indoor');
       // Set room selection
-      api.getRooms({ building_id: item.building_id, floor: item.floor }).then(res => {
+      api.getRooms({ building_id: item.building_id || undefined, floor: item.floor !== null ? item.floor : undefined }).then(res => {
         const found = res.data.find(r => r.id === item.id);
         if (found) setSelectedRoom(found);
       });
