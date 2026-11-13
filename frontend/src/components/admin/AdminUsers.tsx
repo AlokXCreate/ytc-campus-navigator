@@ -63,10 +63,10 @@ export const AdminUsers: React.FC<AdminUsersProps> = ({ currentUser }) => {
     }
   };
 
-  const handleDeleteUser = async (id: number) => {
+  const handleDeleteUser = async (id: number | string) => {
     if (!window.confirm('Are you sure you want to deactivate this account?')) return;
     try {
-      await api.deleteUser(id);
+      await api.deleteUser(Number(id));
       loadUsers();
     } catch (err: any) {
       alert(`Action failed: ${err.message}`);

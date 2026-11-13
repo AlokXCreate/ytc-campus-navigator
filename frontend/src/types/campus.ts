@@ -310,11 +310,20 @@ export interface GeoJSONImportResult {
 }
 
 export interface User {
-  id: number;
+  id: number | string;
   email: string;
   full_name: string;
   role: 'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer';
   is_active: boolean;
+  college_name?: string;
+  phone_number?: string;
+  address?: string;
+  profile_photo?: string;
+  gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | string;
+  department?: string;
+  roll_number?: string;
+  designation?: string;
+  is_guest?: boolean;
   created_at?: string;
 }
 

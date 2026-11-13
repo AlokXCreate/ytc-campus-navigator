@@ -9,6 +9,9 @@ import {
   User
 } from '../types/campus';
 import { api } from '../services/api';
+import { firebaseAuthService } from '../services/firebaseAuth';
+
+export type OnboardingStep = 'intro' | 'auth' | 'profile_setup' | 'ready';
 
 interface CampusContextType {
   summary: CampusSummary | null;
@@ -23,9 +26,18 @@ interface CampusContextType {
   isOnline: boolean;
   isLoading: boolean;
   showIntro: boolean;
+  onboardingStep: OnboardingStep;
+  setOnboardingStep: (step: OnboardingStep) => void;
   userRole: 'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer';
   currentUser: User | null;
+  authModalOpen: boolean;
+  setAuthModalOpen: (open: boolean) => void;
+  profileModalOpen: boolean;
+  setProfileModalOpen: (open: boolean) => void;
+  loginUser: (user: User, token?: string) => void;
   loginAdmin: (token: string, user: User) => void;
+  updateProfile: (data: Partial<User>) => void;
+  logoutUser: () => void;
   logoutAdmin: () => void;
   setUserRole: (role: 'student' | 'faculty' | 'visitor' | 'admin' | 'superadmin' | 'campus_admin' | 'viewer') => void;
   setSelectedBuilding: (b: Building | null) => void;
@@ -54,6 +66,9 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [isOnline, setIsOnline] = useState<boolean>(typeof navigator !== 'undefined' ? navigator.onLine : true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
+
   // User auth state
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
     try {
@@ -77,25 +92,7 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   });
 
-  const loginAdmin = (token: string, user: User) => {
-    api.setAuthToken(token);
-    setCurrentUser(user);
-    setUserRole(user.role as any);
-    try {
-      localStorage.setItem('ytc_auth_user', JSON.stringify(user));
-    } catch {}
-  };
-
-  const logoutAdmin = () => {
-    api.setAuthToken(null);
-    setCurrentUser(null);
-    setUserRole('student');
-    try {
-      localStorage.removeItem('ytc_auth_user');
-    } catch {}
-  };
-
-  // Check intro session state
+  // Intro & Onboarding state
   const [showIntro, setShowIntro] = useState<boolean>(() => {
     try {
       const seen = sessionStorage.getItem('ytc_intro_seen');
@@ -105,15 +102,71 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   });
 
+  const [onboardingStep, setOnboardingStep] = useState<OnboardingStep>(() => {
+    try {
+      const storedUser = localStorage.getItem('ytc_auth_user');
+      if (storedUser) return 'ready';
+      const seen = sessionStorage.getItem('ytc_intro_seen');
+      return seen === 'true' ? 'ready' : 'intro';
+    } catch {
+      return 'intro';
+    }
+  });
+
+  const loginUser = (user: User, token?: string) => {
+    const validToken = token || `token_${Date.now()}`;
+    api.setAuthToken(validToken);
+    setCurrentUser(user);
+    setUserRole(user.role as any);
+    try {
+      localStorage.setItem('ytc_auth_user', JSON.stringify(user));
+    } catch {}
+  };
+
+  const loginAdmin = (token: string, user: User) => {
+    loginUser(user, token);
+  };
+
+  const updateProfile = (data: Partial<User>) => {
+    if (!currentUser) return;
+    const updated: User = { ...currentUser, ...data };
+    setCurrentUser(updated);
+    if (data.role) setUserRole(data.role as any);
+    try {
+      localStorage.setItem('ytc_auth_user', JSON.stringify(updated));
+    } catch {}
+  };
+
+  const logoutUser = () => {
+    api.setAuthToken(null);
+    firebaseAuthService.logout();
+    setCurrentUser(null);
+    setUserRole('student');
+    try {
+      localStorage.removeItem('ytc_auth_user');
+    } catch {}
+  };
+
+  const logoutAdmin = () => {
+    logoutUser();
+  };
+
   const dismissIntro = () => {
     setShowIntro(false);
     try {
       sessionStorage.setItem('ytc_intro_seen', 'true');
     } catch {}
+    // If not authenticated, prompt auth/guest choice
+    if (!currentUser) {
+      setOnboardingStep('auth');
+    } else {
+      setOnboardingStep('ready');
+    }
   };
 
   const replayIntro = () => {
     setShowIntro(true);
+    setOnboardingStep('intro');
   };
 
   const refreshData = async () => {
@@ -176,9 +229,18 @@ export const CampusProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         isOnline,
         isLoading,
         showIntro,
+        onboardingStep,
+        setOnboardingStep,
         userRole,
         currentUser,
+        authModalOpen,
+        setAuthModalOpen,
+        profileModalOpen,
+        setProfileModalOpen,
+        loginUser,
         loginAdmin,
+        updateProfile,
+        logoutUser,
         logoutAdmin,
         setUserRole,
         setSelectedBuilding,

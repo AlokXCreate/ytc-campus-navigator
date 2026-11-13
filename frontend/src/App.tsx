@@ -5,6 +5,10 @@ import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
 import { IntroSplash } from './components/common/IntroSplash';
 import { NetworkStatusBanner } from './components/common/NetworkStatusBanner';
+import { AuthOnboardingModal } from './components/auth/AuthOnboardingModal';
+import { ProfileSetupModal } from './components/auth/ProfileSetupModal';
+import { ProfileDrawer } from './components/auth/ProfileDrawer';
+import { User } from './types/campus';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -17,17 +21,75 @@ import { CampusDirectoryPage } from './pages/CampusDirectoryPage';
 import { FacilitiesPage } from './pages/FacilitiesPage';
 import { AboutPage } from './pages/AboutPage';
 import { AdminPage } from './pages/AdminPage';
+import { AuthPage } from './pages/AuthPage';
 
 const AppContent: React.FC = () => {
-  const { showIntro, dismissIntro } = useCampus();
+  const {
+    showIntro,
+    dismissIntro,
+    onboardingStep,
+    setOnboardingStep,
+    currentUser,
+    authModalOpen,
+    setAuthModalOpen,
+    profileModalOpen,
+    setProfileModalOpen
+  } = useCampus();
+
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
+  const [pendingUser, setPendingUser] = useState<User | null>(currentUser);
+
+  const handleAuthSuccess = (user: User, needsProfileSetup: boolean) => {
+    setPendingUser(user);
+    setAuthModalOpen(false);
+
+    if (needsProfileSetup || !user.phone_number) {
+      setOnboardingStep('profile_setup');
+    } else {
+      setOnboardingStep('ready');
+    }
+  };
+
+  const handleProfileComplete = () => {
+    setOnboardingStep('ready');
+    setProfileModalOpen(false);
+  };
 
   return (
     <div className="flex h-screen bg-[#f8fafc] text-slate-800 font-sans overflow-hidden">
-      {/* Subtle Intro Opening Screen (4s auto or skip, session remembered) */}
+      {/* 1. Cinematic Intro Screen (Golden Emblem, Sacred Sanskrit Motto, Vector Milestones) */}
       {showIntro && <IntroSplash onDismiss={dismissIntro} />}
 
-      {/* Persistent Left Sidebar */}
+      {/* 2. Onboarding Auth Modal (Sign in with Google, Email, or Guest) */}
+      {(onboardingStep === 'auth' || authModalOpen) && (
+        <AuthOnboardingModal
+          isOpen={true}
+          onSuccess={handleAuthSuccess}
+          onClose={() => {
+            setAuthModalOpen(false);
+            if (onboardingStep === 'auth') setOnboardingStep('ready');
+          }}
+        />
+      )}
+
+      {/* 3. Profile Setup Modal (Full Name, College, Dept, Phone, Address, Gender, Photo) */}
+      {(onboardingStep === 'profile_setup' || profileModalOpen) && (
+        <ProfileSetupModal
+          isOpen={true}
+          user={pendingUser || currentUser}
+          onComplete={handleProfileComplete}
+        />
+      )}
+
+      {/* 4. Slide-out Profile Details Drawer */}
+      <ProfileDrawer
+        isOpen={isProfileDrawerOpen}
+        onClose={() => setIsProfileDrawerOpen(false)}
+        onEditProfile={() => setProfileModalOpen(true)}
+      />
+
+      {/* Persistent Left Navigation Sidebar */}
       <Sidebar
         isOpen={isMobileSidebarOpen}
         onClose={() => setIsMobileSidebarOpen(false)}
@@ -35,12 +97,14 @@ const AppContent: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Offline / Online Network Status Bar */}
+        {/* Network Status Banner */}
         <NetworkStatusBanner />
 
+        {/* Global Navigation Header with Clock, Weather, Search & User Avatar */}
         <Header
           onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
           isMobileSidebarOpen={isMobileSidebarOpen}
+          onOpenProfileDrawer={() => setIsProfileDrawerOpen(true)}
         />
 
         <main className="flex-1 overflow-y-auto px-4 md:px-8 py-6">
@@ -55,6 +119,7 @@ const AppContent: React.FC = () => {
             <Route path="/facilities" element={<FacilitiesPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

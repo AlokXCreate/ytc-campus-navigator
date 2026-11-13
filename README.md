@@ -2,8 +2,12 @@
 
 <div align="center">
 
-![YTC Campus Navigator Logo](frontend/public/icons/ytc-logo.svg)
+<img src="frontend/public/icons/ytc-college-logo.png" alt="Yashoda Technical Campus Emblem" width="130" />
 
+### Yashoda Technical Campus, Satara
+**॥ ज्ञानम् जीवनस्य भूषणम् ॥**
+
+# YTC Campus Navigator
 ### Smart Outdoor & Indoor Campus Navigation System
 **Yashoda Technical Campus, Satara, Maharashtra, India**  
 *Faculty of Engineering • Department of Artificial Intelligence & Data Science*
@@ -62,6 +66,18 @@ The application couples an interactive OpenStreetMap outdoor GIS canvas with vec
 - **Service Worker (`sw.js`):** Cache-First caching strategy for application shell, static assets, and vector blueprint SVGs.
 - **Resilient Fallback Cache:** Pre-seeded client data cache guarantees uninterrupted search and route calculation during campus cellular drops.
 - **Network Status Banner:** Non-intrusive alert notifying users when running in cached offline mode.
+
+### 5. Multi-Layer Google Maps GIS Engine & Clear Basemaps
+- **Google Maps Satellite (Hybrid) View:** High-resolution aerial satellite imagery with roads and landmarks overlaid directly on Yashoda Technical Campus terrain.
+- **Google Maps Streets & Terrain Layers:** Instant floating switcher between OpenStreetMap Classic, Google Satellite Hybrid, Google Streets, Google Terrain, and Carto Light.
+- **Native Google Maps Directions Integration:** One-tap button to open any selected building or POI directly in Google Maps for external navigation to campus gates.
+
+### 6. Institutional Intro, Multi-Role Auth & Profile Onboarding
+- **Official Yashoda Technical Campus Emblem:** High-fidelity intro animation with radiant aura and the revered Sanskrit motto: *॥ ज्ञानम् जीवनस्य भूषणम् ॥* ("Knowledge is the ornament of life").
+- **Firebase & Google Authentication:** Integrated Google Sign-In, Email/Password authentication, and 1-Click Guest Access with resilient offline demo fallback.
+- **Multi-Role Support:** Distinct experiences for **Students**, **Faculty**, **Campus Visitors**, and **Administrators**.
+- **Complete Profile Setup:** Comprehensive onboarding capturing Full Name, College, Department, Phone, Residential Address/City, Gender, Profile Avatar, and Roll/Staff ID.
+- **User Profile Drawer:** Header-accessible slide-out drawer with quick profile inspection, edit options, and secure sign-out.
 
 ---
 

@@ -11,74 +11,107 @@ import {
   BookOpen,
   Sparkles,
   Search,
-  CheckCircle2
+  CheckCircle2,
+  Satellite,
+  ExternalLink
 } from 'lucide-react';
 import { useCampus } from '../context/CampusContext';
+import { getAssetUrl } from '../utils/assets';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const { summary, replayIntro } = useCampus();
+  const { summary, replayIntro, setAuthModalOpen, currentUser } = useCampus();
 
   return (
-    <div className="space-y-12 pb-12">
+    <div className="space-y-10 pb-12">
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a1128] via-[#0f172a] to-[#1e293b] text-white p-8 md:p-14 shadow-premium border border-slate-800">
-        <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-blue-600/10 blur-3xl pointer-events-none" />
-        <div className="absolute -left-20 -bottom-20 w-96 h-96 rounded-full bg-indigo-600/10 blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#070e24] via-[#0b173d] to-[#122256] text-white p-8 md:p-12 shadow-2xl border border-blue-900/40">
+        <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
+        <div className="absolute -left-20 -bottom-20 w-96 h-96 rounded-full bg-blue-600/15 blur-3xl pointer-events-none" />
 
-        <div className="relative max-w-3xl space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">
-            <Sparkles className="w-4 h-4 text-blue-400" />
-            <span>Smart Campus Discovery System • Yashoda Technical Campus, Satara</span>
+        <div className="relative flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="max-w-2xl space-y-5">
+            {/* Institution Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-400/30">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>YSPM's Yashoda Technical Campus, Satara &bull; AI&amp;DS</span>
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
+              Intelligent Campus <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500">Wayfinding</span> &amp; Indoor Discovery
+            </h1>
+
+            <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl">
+              High-definition Google Maps Satellite outdoor navigation coupled with vector architectural floor plans. Discover classrooms, AI labs, seminar halls, and optimal walking paths at YTC Satara.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                onClick={() => navigate('/explore')}
+                className="px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-bold text-xs md:text-sm flex items-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] cursor-pointer"
+              >
+                <Satellite className="w-4 h-4 text-amber-300" />
+                <span>Explore Google Satellite Map</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => navigate('/indoor')}
+                className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs md:text-sm border border-white/20 flex items-center gap-2 transition-all cursor-pointer"
+              >
+                <Layers className="w-4 h-4 text-emerald-400" />
+                <span>Indoor Floor Plans</span>
+              </button>
+
+              {!currentUser && (
+                <button
+                  onClick={() => setAuthModalOpen(true)}
+                  className="px-4 py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold text-xs border border-amber-400/40 transition-colors cursor-pointer"
+                >
+                  Sign In / Register
+                </button>
+              )}
+
+              <button
+                onClick={replayIntro}
+                className="px-3 py-3 rounded-xl text-slate-400 hover:text-white text-xs font-medium transition-colors cursor-pointer"
+              >
+                Replay Intro
+              </button>
+            </div>
+
+            {/* Micro Highlights */}
+            <div className="pt-3 flex flex-wrap items-center gap-5 text-xs text-slate-300 border-t border-white/10">
+              <span className="flex items-center gap-1.5 font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                Google Maps High-Res Satellite
+              </span>
+              <span className="flex items-center gap-1.5 font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                Multi-Storey Indoor Graphs
+              </span>
+              <span className="flex items-center gap-1.5 font-semibold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                Offline-First PWA
+              </span>
+            </div>
           </div>
 
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-            Seamless Navigation across <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">YTC Satara</span>
-          </h1>
-
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-2xl">
-            A web-based campus navigation system engineered for students, faculty, visitors, and admissions at Yashoda Technical Campus. Discover classrooms, laboratories, administrative cells, and the shortest walking pathways.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button
-              onClick={() => navigate('/explore')}
-              className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center gap-2 shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Compass className="w-4 h-4" />
-              Explore Campus Map
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={() => navigate('/find')}
-              className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/15 flex items-center gap-2 transition-all"
-            >
-              <Search className="w-4 h-4" />
-              Find a Location
-            </button>
-
-            <button
-              onClick={replayIntro}
-              className="px-4 py-3 rounded-xl text-slate-400 hover:text-white text-xs font-medium transition-colors"
-            >
-              Replay Intro
-            </button>
-          </div>
-
-          <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-400 border-t border-slate-800">
-            <span className="flex items-center gap-1.5 font-medium text-slate-300">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Interactive Outdoor Map
-            </span>
-            <span className="flex items-center gap-1.5 font-medium text-slate-300">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Indoor Floor-Wise Discovery
-            </span>
-            <span className="flex items-center gap-1.5 font-medium text-slate-300">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Offline Resilient Caching
-            </span>
+          {/* College Logo Showcase in Hero */}
+          <div className="shrink-0 flex flex-col items-center text-center">
+            <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-3xl bg-gradient-to-tr from-amber-400/20 to-blue-500/20 p-1 border-2 border-amber-400/50 shadow-2xl backdrop-blur-md">
+              <div className="w-full h-full bg-slate-950/80 rounded-[22px] flex items-center justify-center p-3">
+                <img
+                  src={getAssetUrl('/icons/ytc-college-logo.png')}
+                  alt="Yashoda Technical Campus Emblem"
+                  className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(245,158,11,0.5)]"
+                />
+              </div>
+            </div>
+            <div className="mt-3 bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3 py-1 rounded-full shadow-xs">
+              ॥ ज्ञानम् जीवनस्य भूषणम् ॥
+            </div>
           </div>
         </div>
       </section>
@@ -90,93 +123,96 @@ export const LandingPage: React.FC = () => {
             <div className="text-xs font-bold uppercase tracking-wider text-blue-600">
               Core Capabilities
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mt-1">
-              Engineered for Real Campus Needs
+            <h2 className="text-2xl font-black text-slate-900 mt-1">
+              Engineered for Yashoda Technical Campus
             </h2>
           </div>
           <p className="text-xs text-slate-500 max-w-md">
-            Built as a third-year Artificial Intelligence and Data Science project to solve wayfinding challenges across multi-building campuses.
+            Third-year Artificial Intelligence &amp; Data Science academic project delivering precision indoor-outdoor navigation.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div
             onClick={() => navigate('/explore')}
-            className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-subtle hover:shadow-premium hover:border-blue-200 transition-all cursor-pointer space-y-3"
+            className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-blue-300 transition-all cursor-pointer space-y-3"
           >
             <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <MapPin className="w-6 h-6" />
+              <Satellite className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-              Outdoor Campus Discovery
+            <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              Google Maps &amp; Aerial Satellite
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Locate academic buildings, engineering blocks, pharmacy complex, central library, sports grounds, and parking spots with precise markers.
+              Crystal-clear aerial satellite imagery combined with OpenStreetMap. View campus boundaries, gates, roads, sports grounds, and buildings.
             </p>
-            <div className="text-xs font-semibold text-blue-600 flex items-center gap-1 pt-2">
-              Launch outdoor map <ArrowRight className="w-3.5 h-3.5" />
+            <div className="text-xs font-bold text-blue-600 flex items-center gap-1 pt-1">
+              Launch Satellite Map <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </div>
 
           <div
             onClick={() => navigate('/indoor')}
-            className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-subtle hover:shadow-premium hover:border-blue-200 transition-all cursor-pointer space-y-3"
+            className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-blue-300 transition-all cursor-pointer space-y-3"
           >
             <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Layers className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-              Indoor Floor-by-Floor Plans
+            <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+              Multi-Storey Floor Plans
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Explore multi-storey building interiors. Browse Ground, First, and Second floors to pinpoint AI&amp;DS labs, HOD chambers, and classrooms.
+              Vector architectural blueprints with normalized coordinates $[0, 1]$. Discover AI labs, faculty cabins, and navigate via stairs and lifts.
             </p>
-            <div className="text-xs font-semibold text-emerald-600 flex items-center gap-1 pt-2">
-              Open floor navigator <ArrowRight className="w-3.5 h-3.5" />
+            <div className="text-xs font-bold text-emerald-600 flex items-center gap-1 pt-1">
+              Browse Floor Plans <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </div>
 
           <div
             onClick={() => navigate('/routes')}
-            className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-subtle hover:shadow-premium hover:border-blue-200 transition-all cursor-pointer space-y-3"
+            className="group p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-blue-300 transition-all cursor-pointer space-y-3"
           >
             <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Route className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-              Shortest Walking Routes
+            <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+              Dijkstra &amp; A* Shortest Routes
             </h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Powered by Dijkstra pathfinding over campus walkway graphs. Get turn-by-turn walking instructions, distance, and estimated walk time.
+              NetworkX graph routing computing walking distance in meters, walk times, and wheelchair accessibility modes across pedestrian paths.
             </p>
-            <div className="text-xs font-semibold text-indigo-600 flex items-center gap-1 pt-2">
-              Plan walking route <ArrowRight className="w-3.5 h-3.5" />
+            <div className="text-xs font-bold text-indigo-600 flex items-center gap-1 pt-1">
+              Plan Walking Path <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Institutional Attribution Card */}
-      <section className="p-6 md:p-8 rounded-2xl bg-slate-900 text-slate-200 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* Institutional Accreditation Card */}
+      <section className="p-6 md:p-8 rounded-2xl bg-slate-900 text-slate-200 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
         <div className="space-y-2 max-w-xl">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
             <Building2 className="w-4 h-4" />
-            Academic Project Accreditation
+            Yashoda Technical Campus, Satara
           </div>
           <h3 className="text-xl font-bold text-white">
             Department of Artificial Intelligence &amp; Data Science
           </h3>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Yashoda Technical Campus, NH-4, S. No. 242/1, VN Rd / Wadhe Phata, Wadhe, Satara – 415011, Maharashtra.
+            Approved by AICTE, DTE Maharashtra; Affiliated to Shivaji University / DBATU. S. No. 242/1, NH-4, Wadhe Phata, Satara – 415011, Maharashtra.
           </p>
         </div>
 
-        <button
-          onClick={() => navigate('/about')}
-          className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition-colors shrink-0"
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=17.7215,74.0205"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold transition-colors shrink-0 flex items-center gap-2 cursor-pointer shadow-md"
         >
-          View Campus Details
-        </button>
+          <span>Open Campus in Google Maps</span>
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
       </section>
     </div>
   );
