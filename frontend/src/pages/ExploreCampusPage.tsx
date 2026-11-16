@@ -37,6 +37,8 @@ import {
   Square
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { LiveNavigationHUD } from '../components/navigation/LiveNavigationHUD';
+import { voiceNavigation } from '../services/voiceNavigation';
 
 export const ExploreCampusPage: React.FC = () => {
   const navigate = useNavigate();
@@ -87,6 +89,7 @@ export const ExploreCampusPage: React.FC = () => {
   // Live Navigation State
   const [isNavigatingLive, setIsNavigatingLive] = useState(false);
   const [remainingDistance, setRemainingDistance] = useState<number | null>(null);
+  const [liveNavCoord, setLiveNavCoord] = useState<[number, number] | null>(null);
 
   // Mobile Bottom Sheet toggle
   const [isMobileSheetExpanded, setIsMobileSheetExpanded] = useState(false);
@@ -162,11 +165,14 @@ export const ExploreCampusPage: React.FC = () => {
   const handleStartLiveNavigation = () => {
     setIsNavigatingLive(true);
     startTracking();
+    setIsMobileSheetExpanded(false);
   };
 
   const handleStopLiveNavigation = () => {
     setIsNavigatingLive(false);
+    setLiveNavCoord(null);
     stopTracking();
+    voiceNavigation.setMuted(true);
   };
 
   // Category filtering
@@ -595,16 +601,18 @@ export const ExploreCampusPage: React.FC = () => {
                       {isNavigatingLive ? (
                         <button
                           onClick={handleStopLiveNavigation}
-                          className="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                          className="w-full py-3 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-lg shadow-rose-600/30 cursor-pointer"
                         >
-                          <Square className="w-3.5 h-3.5" /> Stop Live Navigation
+                          <Square className="w-4 h-4 fill-white" />
+                          <span>Stop Live Navigation Mode</span>
                         </button>
                       ) : (
                         <button
                           onClick={handleStartLiveNavigation}
-                          className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-md shadow-blue-500/20"
+                          className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2.5 transition-all shadow-xl shadow-emerald-600/25 cursor-pointer active:scale-98"
                         >
-                          <Play className="w-3.5 h-3.5" /> Start Live Navigation
+                          <Play className="w-4 h-4 fill-white" />
+                          <span>Start Voice Navigation &amp; Directions</span>
                         </button>
                       )}
                     </div>
@@ -684,7 +692,40 @@ export const ExploreCampusPage: React.FC = () => {
       {/* ======================================================== */}
       {/* RIGHT MAIN MAP AREA                                      */}
       {/* ======================================================== */}
-      <div className="flex-1 h-full min-h-[400px]">
+      <div className="flex-1 h-full min-h-[400px] relative overflow-hidden">
+        {/* Google Maps Style Turn-by-Turn Voice Navigation HUD */}
+        {isNavigatingLive && routeResult && (
+          <LiveNavigationHUD
+            routeResult={routeResult}
+            destinationName={
+              pointsOfInterest.find((x) => x.id === destId)?.name ||
+              buildings.find((x) => x.id === destId || `${x.id.replace('-', '_')}_entrance` === destId)?.name ||
+              'Campus Destination'
+            }
+            destinationBuildingId={selectedBuilding?.id || (destId.includes('bldg') ? destId : undefined)}
+            onExit={handleStopLiveNavigation}
+            onStepChange={(_stepIdx, coord) => {
+              setLiveNavCoord(coord);
+            }}
+            onContinueIndoor={() => {
+              handleStopLiveNavigation();
+              let targetBldg = 'bldg-b';
+              let targetFloor = 2;
+              if (destId.includes('admin') || destId.includes('bldg_a')) {
+                targetBldg = 'bldg-a';
+                targetFloor = 0;
+              } else if (destId.includes('lib')) {
+                targetBldg = 'bldg-d';
+                targetFloor = 0;
+              } else if (destId.includes('pharm')) {
+                targetBldg = 'bldg-c';
+                targetFloor = 0;
+              }
+              navigate(`/indoor?building=${targetBldg}&floor=${targetFloor}&fromOutdoor=true`);
+            }}
+          />
+        )}
+
         <CampusMap
           buildings={buildings}
           facilities={facilities}
@@ -701,8 +742,14 @@ export const ExploreCampusPage: React.FC = () => {
           activeRouteGeometry={routeResult?.geometry}
           routeOrigin={routeOriginCoord}
           routeDestination={routeDestCoord}
-          userLocation={position ? { latitude: position.latitude, longitude: position.longitude, accuracy: position.accuracy } : null}
-          isLocating={isTracking}
+          userLocation={
+            isNavigatingLive && liveNavCoord
+              ? { latitude: liveNavCoord[0], longitude: liveNavCoord[1], accuracy: 5 }
+              : position
+              ? { latitude: position.latitude, longitude: position.longitude, accuracy: position.accuracy }
+              : null
+          }
+          isLocating={isTracking || isNavigatingLive}
           onTriggerLocate={() => {
             getCurrentLocation();
           }}

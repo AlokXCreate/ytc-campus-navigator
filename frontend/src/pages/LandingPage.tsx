@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Compass,
@@ -13,14 +13,17 @@ import {
   Search,
   CheckCircle2,
   Satellite,
-  ExternalLink
+  ExternalLink,
+  Smartphone
 } from 'lucide-react';
 import { useCampus } from '../context/CampusContext';
 import { getAssetUrl } from '../utils/assets';
+import { ApkDownloadModal } from '../components/common/ApkDownloadModal';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const { summary, replayIntro, setOnboardingStep, currentUser } = useCampus();
+  const [showApkModal, setShowApkModal] = useState(false);
 
   return (
     <div className="space-y-10 pb-12">
@@ -62,6 +65,14 @@ export const LandingPage: React.FC = () => {
               >
                 <Layers className="w-4 h-4 text-emerald-400" />
                 <span>Indoor Floor Plans</span>
+              </button>
+
+              <button
+                onClick={() => setShowApkModal(true)}
+                className="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs md:text-sm flex items-center gap-2 shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] cursor-pointer"
+              >
+                <Smartphone className="w-4 h-4 text-emerald-200" />
+                <span>Download Android APK</span>
               </button>
 
               {!currentUser && (
@@ -214,6 +225,8 @@ export const LandingPage: React.FC = () => {
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </section>
+
+      <ApkDownloadModal isOpen={showApkModal} onClose={() => setShowApkModal(false)} />
     </div>
   );
 };

@@ -21,8 +21,9 @@
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-199900.svg?logo=leaflet&logoColor=white)](https://leafletjs.com)
 [![Pytest](https://img.shields.io/badge/Tests-28%20Passed-brightgreen.svg?logo=pytest&logoColor=white)](https://pytest.org)
 [![PWA](https://img.shields.io/badge/PWA-Offline%20First-5A0FC8.svg?logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
+[![Android APK](https://img.shields.io/badge/Android-Download%20APK-3DDC84.svg?logo=android&logoColor=white)](https://alokxcreate.github.io/ytc-campus-navigator/downloads/ytc-campus-navigator.apk)
 
-[🌐 Live Web Application](https://alokxcreate.github.io/ytc-campus-navigator/) • [Project Overview](docs/project-demo/PROJECT_OVERVIEW.md) • [Architecture](ARCHITECTURE.md) • [Database Schema](DATABASE_SCHEMA.md) • [API Docs](API_DOCUMENTATION.md) • [Viva Questions](docs/project-demo/VIVA_QUESTIONS.md)
+[🌐 Live Web Application](https://alokxcreate.github.io/ytc-campus-navigator/) • [📱 Download Android APK](https://alokxcreate.github.io/ytc-campus-navigator/downloads/ytc-campus-navigator.apk) • [Project Overview](docs/project-demo/PROJECT_OVERVIEW.md) • [Architecture](ARCHITECTURE.md) • [Database Schema](DATABASE_SCHEMA.md) • [API Docs](API_DOCUMENTATION.md) • [Viva Questions](docs/project-demo/VIVA_QUESTIONS.md)
 
 </div>
 
@@ -78,6 +79,17 @@ The application couples an interactive OpenStreetMap outdoor GIS canvas with vec
 - **Multi-Role Support:** Distinct experiences for **Students**, **Faculty**, **Campus Visitors**, and **Administrators**.
 - **Complete Profile Setup:** Comprehensive onboarding capturing Full Name, College, Department, Phone, Residential Address/City, Gender, Profile Avatar, and Roll/Staff ID.
 - **User Profile Drawer:** Header-accessible slide-out drawer with quick profile inspection, edit options, and secure sign-out.
+
+### 7. Google Maps-Style Turn-by-Turn Voice Navigation HUD
+- **Real-Time Spoken Voice Navigation:** Native Web Speech API announces directional turn prompts (*"Starting route to Central Library"*, *"In 30 meters, turn right toward Engineering Block"*, *"You have arrived at your destination"*).
+- **Maneuver HUD Overlay:** Prominent Google Maps navigation header with large dynamic maneuver arrows (Turn Left, Turn Right, Straight, Arrive), distance countdown, and next-maneuver preview.
+- **Navigation Cockpit:** Floating dashboard displaying remaining distance, remaining walk minutes, live calculated ETA, step-by-step advance controls, and mute/unmute audio button.
+- **Simulate GPS Walking Animation:** 1-Click demo simulator that walks the blue navigation avatar along the polyline, auto-panning the camera and announcing each turn aloud.
+
+### 8. Native Android Mobile Application (.APK)
+- **Universal Android APK:** Native Android package compiled via Capacitor Android and Gradle with target SDK 36.
+- **Direct Download:** Download the standalone release APK directly from the live web application at `/downloads/ytc-campus-navigator.apk`.
+- **Sensors & Permissions:** Full access to high-accuracy GPS hardware (`ACCESS_FINE_LOCATION`), cellular triangulation, and turn-warning vibration feedback (`VIBRATE`).
 
 ---
 

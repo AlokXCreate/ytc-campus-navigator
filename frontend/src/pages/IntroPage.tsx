@@ -146,3 +146,4 @@ export const IntroPage: React.FC<IntroPageProps> = ({ onComplete }) => {
     </div>
   );
 };
+

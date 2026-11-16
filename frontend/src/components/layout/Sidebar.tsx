@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -11,10 +11,12 @@ import {
   Info,
   ShieldAlert,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  Smartphone
 } from 'lucide-react';
 import { useCampus } from '../../context/CampusContext';
 import { getAssetUrl } from '../../utils/assets';
+import { ApkDownloadModal } from '../common/ApkDownloadModal';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -23,6 +25,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { summary, userRole, setOnboardingStep } = useCampus();
+  const [showApkModal, setShowApkModal] = useState(false);
 
   const navigationItems = [
     { name: 'Overview', path: '/dashboard', icon: LayoutDashboard },
@@ -110,6 +113,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
         {/* Bottom Quick Controls & Sanskrit Motto */}
         <div className="p-4 border-t border-slate-800/80 space-y-2.5">
+          {/* Download Android APK Banner */}
+          <button
+            onClick={() => setShowApkModal(true)}
+            className="w-full p-2.5 rounded-xl bg-gradient-to-r from-emerald-600/20 to-teal-600/20 hover:from-emerald-600/30 hover:to-teal-600/30 border border-emerald-500/40 text-emerald-300 flex items-center justify-between text-xs font-bold transition-all cursor-pointer group"
+          >
+            <div className="flex items-center gap-2">
+              <Smartphone className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <span>Get Android App</span>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+              APK
+            </span>
+          </button>
+
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => {
@@ -141,6 +158,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
       </aside>
+
+      <ApkDownloadModal isOpen={showApkModal} onClose={() => setShowApkModal(false)} />
     </>
   );
 };

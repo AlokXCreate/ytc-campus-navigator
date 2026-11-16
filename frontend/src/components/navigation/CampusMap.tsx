@@ -46,17 +46,20 @@ const MapController: React.FC<{
   center?: [number, number];
   zoom?: number;
   fitBoundsCoords?: [number, number][];
-}> = ({ center, zoom, fitBoundsCoords }) => {
+  followCoord?: [number, number] | null;
+}> = ({ center, zoom, fitBoundsCoords, followCoord }) => {
   const map = useMap();
 
   useEffect(() => {
-    if (fitBoundsCoords && fitBoundsCoords.length > 1) {
+    if (followCoord) {
+      map.panTo(L.latLng(followCoord[0], followCoord[1]), { animate: true, duration: 0.8 });
+    } else if (fitBoundsCoords && fitBoundsCoords.length > 1) {
       const bounds = L.latLngBounds(fitBoundsCoords.map((c) => L.latLng(c[0], c[1])));
       map.fitBounds(bounds, { padding: [50, 50], maxZoom: 18, animate: true });
     } else if (center && zoom) {
       map.flyTo(center, zoom, { duration: 1.2 });
     }
-  }, [center, zoom, fitBoundsCoords, map]);
+  }, [center, zoom, fitBoundsCoords, followCoord, map]);
 
   return null;
 };
@@ -505,7 +508,12 @@ export const CampusMap: React.FC<CampusMapProps> = ({
         scrollWheelZoom={true}
         className="w-full h-full"
       >
-        <MapController center={mapCenter} zoom={mapZoom} fitBoundsCoords={fitBoundsCoords} />
+        <MapController
+          center={mapCenter}
+          zoom={mapZoom}
+          fitBoundsCoords={fitBoundsCoords}
+          followCoord={userLocation ? [userLocation.latitude, userLocation.longitude] : null}
+        />
 
         {/* Dynamically Swapped Tile Layer */}
         {mapStyle === 'google_hybrid' && (

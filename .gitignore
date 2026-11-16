@@ -17,6 +17,8 @@ build/
 develop-eggs/
 dist/
 downloads/
+!frontend/public/downloads/
+!build-artifacts/
 eggs/
 .eggs/
 lib/
@@ -62,3 +64,11 @@ pnpm-debug.log*
 *.swp
 *.swo
 *~
+
+# Android Gradle Temporary Caches
+frontend/android/.gradle/
+frontend/android/build/
+frontend/android/app/build/
+frontend/android/capacitor-cordova-android-plugins/build/
+frontend/android/local.properties
+.gradle/

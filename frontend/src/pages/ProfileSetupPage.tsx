@@ -343,3 +343,4 @@ export const ProfileSetupPage: React.FC<ProfileSetupPageProps> = ({
     </div>
   );
 };
+

@@ -15,12 +15,14 @@ import {
   Sun,
   CloudSun,
   Sparkles,
-  LogIn
+  LogIn,
+  Smartphone
 } from 'lucide-react';
 import { useCampus } from '../../context/CampusContext';
 import { api } from '../../services/api';
 import { SearchResult } from '../../types/campus';
 import { getAssetUrl } from '../../utils/assets';
+import { ApkDownloadModal } from '../common/ApkDownloadModal';
 
 interface HeaderProps {
   onToggleMobileSidebar: () => void;
@@ -48,6 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [isSearching, setIsSearching] = useState(false);
   const [showResultsDropdown, setShowResultsDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showApkModal, setShowApkModal] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   // Live Clock
@@ -236,6 +239,16 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
 
+        {/* Android APK Download Button */}
+        <button
+          onClick={() => setShowApkModal(true)}
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold transition-all shadow-xs cursor-pointer hover:scale-105 active:scale-95"
+          title="Download Android APK"
+        >
+          <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
+          <span>Android App</span>
+        </button>
+
         {/* Notifications Icon & Popover */}
         <div className="relative">
           <button
@@ -301,6 +314,8 @@ export const Header: React.FC<HeaderProps> = ({
         )}
 
       </div>
+
+      <ApkDownloadModal isOpen={showApkModal} onClose={() => setShowApkModal(false)} />
     </header>
   );
 };
