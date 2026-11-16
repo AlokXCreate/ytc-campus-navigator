@@ -41,8 +41,6 @@ jobs:
       - name: Build Production Frontend
         working-directory: ./frontend
         run: npm run build
-        env:
-          VITE_BASE_PATH: /ytc-campus-navigator/
 
       - name: Copy index.html to 404.html for SPA Routing
         run: cp frontend/dist/index.html frontend/dist/404.html
